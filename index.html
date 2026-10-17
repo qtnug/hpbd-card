@@ -44,10 +44,11 @@
             background-size: 22px 22px;
             font-family: var(--font-handwriting);
             min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px 10px;
+            padding: 12px 8px;
             overflow-x: hidden;
         }
 
@@ -334,8 +335,8 @@
         /* ================= KHUNG THIỆP SCRAPBOOK CHÍNH ================= */
         .scrapbook-card {
             width: 100%;
-            max-width: 450px;
-            min-height: 760px;
+            max-width: 440px;
+            min-height: 720px;
             background-color: #fbf7ee;
             background-image: url('images/bg.png');
             background-size: cover;
@@ -344,7 +345,7 @@
             border-radius: 18px;
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18), 0 0 0 8px #ffffff;
             position: relative;
-            padding: 26px 18px 30px;
+            padding: 22px 14px 24px;
             overflow: hidden;
             display: flex;
             flex-direction: column;
@@ -356,17 +357,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
-            margin-bottom: 18px;
+            gap: 6px;
+            margin-bottom: 12px;
             z-index: 5;
             cursor: pointer;
+            width: 100%;
         }
 
         .ransom-row {
             display: flex;
-            gap: 5px;
+            gap: 4px;
             justify-content: center;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* BẮT BUỘC: Giữ trọn vẹn 1 hàng, không để rớt chữ Y làm đội chiều cao */
+            max-width: 100%;
         }
 
         /* ================= HIỆU ỨNG STOP MOTION CHỮ HAPPY BIRTHDAY ================= */
@@ -455,8 +458,8 @@
             display: inline-flex;
             justify-content: center;
             align-items: center;
-            padding: 4px 10px;
-            font-size: 28px;
+            padding: 4px 8px;
+            font-size: 25px;
             font-weight: 700;
             box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.15);
             position: relative;
@@ -465,6 +468,7 @@
             user-select: none;
             cursor: pointer;
             transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 4px;
         }
 
         .r-char:hover {
@@ -999,7 +1003,7 @@
         .bottom-collage {
             width: 100%;
             margin-top: auto;
-            padding-top: 25px;
+            padding-top: 18px;
             display: flex;
             justify-content: space-between;
             align-items: flex-end;
@@ -1008,21 +1012,21 @@
         }
 
         .cat-bottom-left {
-            width: 135px;
-            height: 155px;
+            width: 126px;
+            height: 145px;
             position: relative;
-            transform: translate(0px, -54px) rotate(-8deg) scale(1.18);
+            transform: translate(0px, -44px) rotate(-8deg) scale(1.10);
             cursor: pointer;
             transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .cat-bottom-left:hover {
-            transform: translate(0px, -54px) rotate(-4deg) scale(1.23);
+            transform: translate(0px, -44px) rotate(-4deg) scale(1.15);
         }
 
         .cat-bottom-right {
-            width: 135px;
-            height: 160px;
+            width: 126px;
+            height: 150px;
             position: relative;
             transform: rotate(3deg);
             cursor: pointer;
@@ -1036,7 +1040,7 @@
         /* ================= BÁNH KEM THỔI NẾN (CÓ LỬA / KHÔNG CÓ LỬA) ================= */
         .cake-interactive {
             position: absolute;
-            bottom: 4px;
+            bottom: 12px;
             left: 50%;
             transform: translateX(-50%);
             z-index: 9;
@@ -1052,10 +1056,10 @@
         }
 
         .cake-box {
-            width: 160px;
-            height: 160px;
+            width: 136px;
+            height: 134px;
             position: relative;
-            /* KHÔNG để overflow: hidden để không bao giờ bị cắt ngọn nến ở trên */
+            /* Hiển thị trọn vẹn toàn bộ ngọn lửa nến */
             overflow: visible;
             display: flex;
             justify-content: center;
@@ -1063,15 +1067,13 @@
         }
 
         .cake-img {
-            width: 160px;
-            height: auto;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.2));
             transition: transform 0.2s ease;
             user-select: none;
             -webkit-user-drag: none;
-            /* Vị trí chuẩn đã căn chỉnh để lộ trọn vẹn toàn bộ 5 cây nến và ngọn lửa */
-            transform: translateY(-125px);
             transform-origin: center center;
         }
 
@@ -1100,7 +1102,7 @@
             font-size: 12px;
             font-weight: 700;
             color: #d6336c;
-            margin-top: 24px;
+            margin-top: 6px;
             box-shadow: 2px 2px 0 #333333;
             white-space: nowrap;
             z-index: 10;
@@ -1198,6 +1200,230 @@
             100% {
                 opacity: 0;
                 transform: translate(-50%, -50%) scale(1.4) translateY(-90px);
+            }
+        }
+
+        /* ================= TỐI ƯU GIAO DIỆN MÀN HÌNH ĐIỆN THOẠI (IPHONE SE, 13, 14, 15 PRO MAX) ================= */
+        @media (max-width: 430px) {
+            body {
+                padding: 10px 6px;
+            }
+
+            .scrapbook-card {
+                padding: 18px 10px 20px;
+                min-height: 660px;
+                box-shadow: 0 10px 28px rgba(0, 0, 0, 0.16), 0 0 0 6px #ffffff;
+            }
+
+            .ransom-title {
+                gap: 5px;
+                margin-bottom: 10px;
+            }
+
+            .ransom-row {
+                gap: 3px;
+            }
+
+            .r-char {
+                font-size: 22px;
+                padding: 3px 6px;
+            }
+
+            .c-y1, .c-r {
+                font-size: 26px !important;
+            }
+
+            /* Thu gọn nhẹ Polaroid trên điện thoại để tạo khoảng thở thoải mái */
+            .polaroid-section {
+                width: 220px;
+                margin: 4px auto 10px 8px;
+            }
+
+            .polaroid-frame {
+                padding: 10px 10px 38px 10px;
+            }
+
+            .polaroid-img-box {
+                height: 188px;
+            }
+
+            .polaroid-caption {
+                font-size: 22px;
+                bottom: 8px;
+            }
+
+            .washi-tape {
+                width: 82px;
+                height: 24px;
+                top: -11px;
+            }
+
+            .bow-tie-sticker {
+                width: 76px;
+                bottom: -20px;
+                left: -20px;
+            }
+
+            /* Mèo góc trên bên phải */
+            .cat-top-right {
+                top: 130px;
+                right: 8px;
+                width: 102px;
+                height: 120px;
+            }
+
+            /* Bức thư trên thiệp */
+            .mini-letter-trigger {
+                top: 260px;
+                right: 8px;
+                width: 108px;
+            }
+
+            .mini-note-sub {
+                font-size: 10.5px;
+                padding: 2.5px 9px;
+            }
+
+            /* Mèo cam đứng */
+            .cat-standing-sticker {
+                top: 242px;
+                right: 104px;
+                width: 72px;
+            }
+
+            /* Cụm phía dưới: 2 mèo + Bánh kem */
+            .bottom-collage {
+                padding-top: 15px;
+            }
+
+            .cat-bottom-left {
+                width: 118px;
+                height: 136px;
+                transform: translate(0px, -40px) rotate(-8deg) scale(1.08);
+            }
+
+            .cat-bottom-right {
+                width: 118px;
+                height: 140px;
+                transform: rotate(3deg);
+            }
+
+            .cake-box {
+                width: 124px;
+                height: 122px;
+            }
+
+            .cake-img {
+                width: 100%;
+                height: 100%;
+            }
+
+            .blow-hint {
+                font-size: 11px;
+                padding: 3px 10px;
+                margin-top: 5px;
+            }
+
+            .hat-sticker-left {
+                width: 50px;
+                top: -40px;
+            }
+
+            .hat-sticker-right {
+                width: 46px;
+                top: -38px;
+            }
+
+            .flower-badge-img {
+                width: 74px;
+                bottom: -14px;
+                right: -18px;
+            }
+        }
+
+        /* Màn hình nhỏ gọn (iPhone SE / màn hình dưới 375px) */
+        @media (max-width: 375px) {
+            body {
+                padding: 8px 4px;
+            }
+
+            .scrapbook-card {
+                padding: 14px 8px 16px;
+                min-height: 600px;
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15), 0 0 0 5px #ffffff;
+            }
+
+            .ransom-title {
+                gap: 4px;
+                margin-bottom: 8px;
+            }
+
+            .ransom-row {
+                gap: 2px;
+            }
+
+            .r-char {
+                font-size: 19px;
+                padding: 2.5px 4.5px;
+            }
+
+            .c-y1, .c-r {
+                font-size: 22px !important;
+            }
+
+            .polaroid-section {
+                width: 195px;
+                margin: 2px auto 8px 4px;
+            }
+
+            .polaroid-img-box {
+                height: 165px;
+            }
+
+            .polaroid-caption {
+                font-size: 20px;
+                bottom: 6px;
+            }
+
+            .cat-top-right {
+                top: 118px;
+                right: 4px;
+                width: 90px;
+                height: 106px;
+            }
+
+            .mini-letter-trigger {
+                top: 232px;
+                right: 4px;
+                width: 95px;
+            }
+
+            .cat-standing-sticker {
+                top: 220px;
+                right: 90px;
+                width: 62px;
+            }
+
+            .cat-bottom-left {
+                width: 104px;
+                height: 120px;
+                transform: translate(0px, -34px) rotate(-8deg) scale(1.05);
+            }
+
+            .cat-bottom-right {
+                width: 104px;
+                height: 124px;
+            }
+
+            .cake-box {
+                width: 112px;
+                height: 110px;
+            }
+
+            .blow-hint {
+                font-size: 10.5px;
+                padding: 2.5px 8px;
+                margin-top: 4px;
             }
         }
     </style>
@@ -1730,7 +1956,7 @@ Sau có giàu thì nhận thêm một người em nuôi nữa nha!!!!`,
            - Khi mở route sửa ("chinh-sua.html" hoặc "cmsn.html?edit=1" hoặc bấm Ctrl+Shift+E):
              Bật đầy đủ bảng công cụ tùy chỉnh (Bánh kem, Nút thổi nến, Ảnh, Mũ, Sticker...)
            ===================================================================== */
-        const STORAGE_KEY = 'CMSN_CUSTOM_LAYOUT_V4';
+        const STORAGE_KEY = 'CMSN_CUSTOM_LAYOUT_V5';
         const urlParams = new URLSearchParams(window.location.search);
         const hasEditParam = urlParams.has('edit') || window.location.hash.toLowerCase().includes('edit');
         if (!hasEditParam) {
@@ -1751,7 +1977,7 @@ Sau có giàu thì nhận thêm một người em nuôi nữa nha!!!!`,
         const DEBUG_ITEMS = [
             // --- 🎂 BÁNH KEM & NÚT THỔI NẾN ---
             { id: 'blowHint', group: 'cake', name: '💨 Nút thổi nến (Chữ gợi ý)', selector: '#blowHintText', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
-            { id: 'cakeImg', group: 'cake', name: '🎂 Riêng ảnh Bánh kem (9:16)', selector: '#cakeImg', x: 0, y: -125, scale: 1, rotate: 0, base: '' },
+            { id: 'cakeImg', group: 'cake', name: '🎂 Riêng ảnh Bánh kem', selector: '#cakeImg', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
             { id: 'cakeTrigger', group: 'cake', name: '🎂 Cả cụm Bánh kem', selector: '#cakeTrigger', x: 0, y: 0, scale: 1, rotate: 0, base: 'translateX(-50%)' },
 
             // --- 📸 ẢNH CỦA BẠN (Căn chỉnh bên trong khung) ---
@@ -1792,11 +2018,14 @@ Sau có giàu thì nhận thêm một người em nuôi nữa nha!!!!`,
         // Tự động nạp vị trí lưu trong LocalStorage (nếu người dùng đã chỉnh sửa)
         let savedData = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
         if (!savedData) {
-            // Nạp từ bản lưu V3 nếu có và tự động sửa vị trí bức thư bị lệch bay khỏi màn hình
-            const oldData = JSON.parse(localStorage.getItem('CMSN_CUSTOM_LAYOUT_V3') || '{}');
-            savedData = { ...oldData };
-            if (savedData.miniLetter && (savedData.miniLetter.x >= 100 || savedData.miniLetter.scale > 1.4)) {
-                savedData.miniLetter = { x: 0, y: 0, scale: 1, rotate: 6 };
+            savedData = {};
+            // Nếu có bản lưu V4 cũ, lấy các vị trí tùy chỉnh nhưng bỏ offset -125 của bánh kem cũ
+            const v4Data = JSON.parse(localStorage.getItem('CMSN_CUSTOM_LAYOUT_V4') || 'null');
+            if (v4Data) {
+                savedData = { ...v4Data };
+                if (savedData.cakeImg && savedData.cakeImg.y === -125) {
+                    savedData.cakeImg.y = 0;
+                }
             }
             localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
         }
