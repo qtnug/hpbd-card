@@ -1,0 +1,13 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/chinh-sua",
+      "destination": "/chinh-sua.html"
+    },
+    {
+      "source": "/cmsn",
+      "destination": "/index.html"
+    }
+  ]
+}

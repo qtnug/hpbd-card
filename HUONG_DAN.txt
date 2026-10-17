@@ -1,0 +1,39 @@
+===================================================================
+HƯỚNG DẪN THAY ẢNH, NHẠC VÀ LỜI CHÚC CHO TRANG WEB SINH NHẬT
+===================================================================
+
+1. CÁCH THAY ẢNH (BẠN CHỈ CẦN COPY ẢNH VÀO THƯ MỤC "images"):
+   - Ảnh nền của tấm thiệp:                Lưu tên ảnh là "bg.png" trong thư mục "images" (hoặc cùng thư mục)
+   - Ảnh người sinh nhật (khung Polaroid): Đổi tên ảnh thành "anh-chinh.jpg" rồi bỏ vào thư mục "images"
+   - Ảnh chú mèo 1 (góc trên phải):        Đổi tên ảnh thành "meo-1.jpg" rồi bỏ vào thư mục "images"
+   - Ảnh chú mèo 2 (góc dưới trái):        Đổi tên ảnh thành "meo-2.jpg" rồi bỏ vào thư mục "images"
+   - Ảnh chú mèo 3 (góc dưới phải ôm hoa): Đổi tên ảnh thành "meo-3.jpg" rồi bỏ vào thư mục "images"
+   - Bánh kem có lửa (khi chưa thổi):      Lưu tên ảnh là "cake_with_fire.png" trong thư mục "images"
+   - Bánh kem không có lửa (khi đã thổi):  Lưu tên ảnh là "cake_no_fire.png" trong thư mục "images"
+   - Bức thư nhỏ trên thiệp:               Lưu tên ảnh là "mail.png" trong thư mục "images"
+
+   * Mẹo: Nếu ảnh của bạn là đuôi .png thì mở file "cmsn.html", tìm chữ "anh-chinh.jpg" sửa thành "anh-chinh.png".
+
+2. CÁCH THÊM BÀI HÁT MP3 CỦA BẠN:
+   - Bạn chỉ cần lấy file nhạc mp3 yêu thích, đổi tên thành "nhac.mp3" và để cùng chỗ với file "cmsn.html".
+   - (Nếu chưa có file nhac.mp3, trang web sẽ tự động phát giai điệu Hộp nhạc Happy Birthday phối khí đa âm sắc cực du dương và ngọt ngào).
+
+3. CÁCH SỬA LỜI CHÚC:
+   - Mở file "cmsn.html" bằng Notepad hoặc bất kỳ trình soạn thảo nào.
+   - Tìm đoạn "CAU_HINH" (ở gần cuối file):
+     + tieuDeThu: Tiêu đề thư (ví dụ: "Gửi chị Trang (trứng)")
+     + noiDungLoiChuc: Viết bất cứ lời chúc, bài thơ hay tâm sự gì bạn muốn.
+     + chuKy: Tên người gửi (ví dụ: "— e Tùng")
+     + chuDuoiAnh: Dòng chữ nắn nót dưới ảnh Polaroid (ví dụ: "Trứng Xinh ♡")
+     + chuThuNho: Dòng chữ dưới ảnh bức thư trên thiệp (ví dụ: "Ấn vào để mở")
+   - Lưu file lại (Save) rồi mở file "cmsn.html" trên trình duyệt là xong!
+
+4. CÁCH CĂN CHỈNH VỊ TRÍ ẢNH, BÁNH KEM & NÚT THỔI NẾN:
+   - Cách 1: Nhấp đúp chuột vào file "chinh-sua.html" (hoặc mở đường dẫn "cmsn.html?edit=1").
+   - Cách 2: Khi đang xem thiệp ở "cmsn.html", nhấn tổ hợp phím Ctrl + Shift + E.
+   - Bảng công cụ căn chỉnh sẽ hiện ra:
+     + Bạn có thể click trực tiếp vào nút "💨 Chạm để thổi nến", bánh kem, bức thư mail hoặc bất kỳ ảnh/sticker nào để kéo thả di chuyển.
+     + Lăn con lăn chuột để Zoom to / nhỏ; dùng thanh trượt hoặc phím mũi tên để dịch chuyển chính xác từng pixel.
+     + Bấm nút "💾 LƯU & XEM THIỆP SẠCH" để lưu vị trí và quay về xem thiệp chuẩn (không có nút chỉnh sửa thừa).
+     + Bấm nút "📋 COPY MÃ CSS VỊ TRÍ" nếu bạn muốn gửi lại mã cho AI để nhúng cố định vĩnh viễn vào mã nguồn.
+===================================================================

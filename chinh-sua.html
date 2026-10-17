@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🛠️ Chỉnh Sửa Thiệp Sinh Nhật</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #141622;
+            color: #ffffff;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .loader-card {
+            background: #1e2132;
+            border: 2px solid #00f2fe;
+            border-radius: 16px;
+            padding: 36px 30px;
+            max-width: 440px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 242, 254, 0.25);
+        }
+
+        h2 {
+            margin: 0 0 12px;
+            color: #00f2fe;
+            font-size: 22px;
+        }
+
+        p {
+            color: #c4c8d8;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 0 0 20px;
+        }
+
+        .btn-go {
+            display: inline-block;
+            background: linear-gradient(90deg, #00f2fe, #4facfe);
+            color: #111;
+            font-weight: 800;
+            text-decoration: none;
+            padding: 12px 26px;
+            border-radius: 30px;
+            box-shadow: 0 5px 15px rgba(0, 242, 254, 0.4);
+            font-size: 15px;
+            transition: transform 0.15s;
+        }
+
+        .btn-go:hover {
+            transform: scale(1.05);
+        }
+    </style>
+    <script>
+        // Kích hoạt chế độ chỉnh sửa cho phiên làm việc
+        sessionStorage.setItem('CMSN_EDIT_MODE', '1');
+        // Chuyển hướng sang thiệp với cờ edit=1 và hash #edit
+        window.location.replace("cmsn.html?edit=1#edit");
+    </script>
+</head>
+
+<body>
+    <div class="loader-card">
+        <h2>🛠️ Đang mở Bộ Căn Chỉnh Vị Trí...</h2>
+        <p>Hệ thống đang mở trang thiệp sinh nhật ở chế độ tùy chỉnh vị trí ảnh, bánh kem và nút thổi nến.</p>
+        <a class="btn-go" href="cmsn.html?edit=1#edit">Bấm vào đây nếu trình duyệt không tự chuyển</a>
+    </div>
+</body>
+
+</html>

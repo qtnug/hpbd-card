@@ -1,0 +1,2487 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chúc Mừng Sinh Nhật! 🎂✨</title>
+
+    <!-- Google Fonts hỗ trợ tiếng Việt 100% không bị lỗi font hay vỡ dấu -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Comfortaa:wght@600;700&family=Dancing+Script:wght@700&family=Fredoka:wght@600;700&family=Itim&family=Mali:ital,wght@0,500;0,600;0,700;1,600&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+
+    <!-- Thư viện pháo giấy Confetti -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --paper-bg: #f6f2eb;
+            --pink-pastel: #ffb3c6;
+            --pink-dark: #fb6f92;
+            --yellow-pastel: #ffee93;
+            --purple-pastel: #dcd6f7;
+            --green-pastel: #c7f9cc;
+            /* Font chữ tiếng Việt */
+            --font-handwriting: 'Itim', 'Mali', cursive;
+            --font-calligraphy: 'Dancing Script', 'Caveat', cursive;
+            --font-cute: 'Comfortaa', 'Fredoka', cursive, sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: #e5ddd3;
+            background-image: radial-gradient(#d5cbbd 1.5px, transparent 1.5px);
+            background-size: 22px 22px;
+            font-family: var(--font-handwriting);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 10px;
+            overflow-x: hidden;
+        }
+
+        /* ================= MÀN HÌNH PHONG BÌ & BỨC THƯ (MODAL) ================= */
+        .letter-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(30, 24, 20, 0.78);
+            backdrop-filter: blur(6px);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-y: auto;
+            transition: opacity 0.4s ease, visibility 0.4s ease;
+        }
+
+        .letter-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        /* --- Trạng thái 1: Phong bì đóng khi vừa vào web --- */
+        .envelope-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .envelope-stage:hover {
+            transform: scale(1.04);
+        }
+
+        .envelope-stage.hidden {
+            display: none;
+        }
+
+        .envelope-box {
+            position: relative;
+            width: 300px;
+            height: 200px;
+            background: #ffcad4;
+            border-radius: 0 0 14px 14px;
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+            border: 3px solid #333333;
+            animation: floatEnvelope 2.8s ease-in-out infinite;
+        }
+
+        @keyframes floatEnvelope {
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(-1deg);
+            }
+
+            50% {
+                transform: translateY(-12px) rotate(1.5deg);
+            }
+        }
+
+        .env-flap {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 147px solid transparent;
+            border-right: 147px solid transparent;
+            border-top: 110px solid #ff9ebb;
+            transform-origin: top;
+            z-index: 4;
+            transition: transform 0.5s ease;
+            filter: drop-shadow(0 3px 2px rgba(0, 0, 0, 0.12));
+        }
+
+        .env-pocket {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 147px solid #ffb3c6;
+            border-right: 147px solid #ffb3c6;
+            border-bottom: 100px solid #ff99b4;
+            border-top: 97px solid transparent;
+            border-radius: 0 0 11px 11px;
+            z-index: 3;
+        }
+
+        .env-paper-preview {
+            position: absolute;
+            top: 15px;
+            left: 18px;
+            right: 18px;
+            height: 160px;
+            background: #fffdf9;
+            border-radius: 8px;
+            border: 2px solid #444;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+            font-family: var(--font-calligraphy);
+            font-size: 27px;
+            font-weight: 700;
+            color: #d6336c;
+            transition: transform 0.6s ease;
+        }
+
+        .env-sub-text {
+            font-family: var(--font-handwriting);
+            font-size: 17px;
+            color: #666;
+            margin-top: 6px;
+        }
+
+        .wax-seal {
+            position: absolute;
+            top: 85px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: #e63946;
+            border-radius: 50%;
+            border: 2.5px solid #333333;
+            z-index: 5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .envelope-box.opening .env-flap {
+            transform: rotateX(180deg);
+            z-index: 1;
+        }
+
+        .envelope-box.opening .wax-seal {
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+        }
+
+        .envelope-box.opening .env-paper-preview {
+            transform: translateY(-75px);
+        }
+
+        .click-hint {
+            margin-top: 28px;
+            background: #ffffff;
+            color: #333333;
+            padding: 9px 22px;
+            border-radius: 30px;
+            font-family: var(--font-cute);
+            font-size: 15px;
+            font-weight: 700;
+            border: 2px solid #333333;
+            box-shadow: 3px 3px 0 #333333;
+            animation: pulseHint 1.5s infinite;
+        }
+
+        @keyframes pulseHint {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.06);
+            }
+        }
+
+        /* --- Trạng thái 2: Tờ giấy bức thư mở ra --- */
+        .letter-paper-card {
+            background: #fffdf7;
+            background-image: repeating-linear-gradient(transparent, transparent 31px, #e8e2d5 31px, #e8e2d5 32px);
+            width: 100%;
+            max-width: 460px;
+            border-radius: 14px;
+            border: 3px solid #333333;
+            box-shadow: 8px 10px 0px #333333;
+            padding: 34px 26px 24px;
+            position: relative;
+            display: none;
+            animation: popLetter 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .letter-paper-card.show {
+            display: block;
+        }
+
+        @keyframes popLetter {
+            0% {
+                transform: scale(0.6) translateY(50px);
+                opacity: 0;
+            }
+
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .letter-paper-card::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-2deg);
+            width: 120px;
+            height: 30px;
+            background: rgba(255, 179, 198, 0.85);
+            border: 1px dashed rgba(0, 0, 0, 0.15);
+        }
+
+        .letter-header {
+            font-family: var(--font-calligraphy);
+            font-size: 34px;
+            font-weight: 700;
+            color: #d6336c;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .letter-body {
+            font-family: var(--font-handwriting);
+            font-size: 21px;
+            line-height: 32px;
+            color: #2b2b2b;
+            white-space: pre-line;
+            min-height: 150px;
+            max-height: 55vh;
+            overflow-y: auto;
+            padding-right: 6px;
+        }
+
+        .letter-footer {
+            margin-top: 22px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .letter-sign {
+            font-family: var(--font-calligraphy);
+            font-size: 27px;
+            color: #444;
+            font-weight: 700;
+        }
+
+        .btn-close-letter {
+            background: var(--pink-dark);
+            color: #ffffff;
+            border: 2px solid #333333;
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-family: var(--font-cute);
+            font-size: 14px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 3px 3px 0 #333333;
+            transition: transform 0.15s;
+        }
+
+        .btn-close-letter:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 #333333;
+        }
+
+        /* ================= KHUNG THIỆP SCRAPBOOK CHÍNH ================= */
+        .scrapbook-card {
+            width: 100%;
+            max-width: 450px;
+            min-height: 760px;
+            background-color: #fbf7ee;
+            background-image: url('images/bg.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            border-radius: 18px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.18), 0 0 0 8px #ffffff;
+            position: relative;
+            padding: 26px 18px 30px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* ================= CHỮ RANSOM NOTE "HAPPY BIRTHDAY" ================= */
+        .ransom-title {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 18px;
+            z-index: 5;
+            cursor: pointer;
+        }
+
+        .ransom-row {
+            display: flex;
+            gap: 5px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHỮ HAPPY BIRTHDAY ================= */
+        @keyframes stopMotion1 {
+            0% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+
+            25% {
+                transform: rotate(calc(var(--base-rot) + 3.5deg)) translate(1px, -1.5px) scale(1.02);
+                box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.22);
+            }
+
+            50% {
+                transform: rotate(calc(var(--base-rot) - 2.5deg)) translate(-1.5px, 1px) scale(0.99);
+                box-shadow: 3px 2px 4px rgba(0, 0, 0, 0.14);
+            }
+
+            75% {
+                transform: rotate(calc(var(--base-rot) + 1.5deg)) translate(1px, 1px) scale(1.03);
+                box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.20);
+            }
+
+            100% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+        }
+
+        @keyframes stopMotion2 {
+            0% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+
+            25% {
+                transform: rotate(calc(var(--base-rot) - 3deg)) translate(-1px, 1.5px) scale(0.98);
+                box-shadow: 3px 2px 5px rgba(0, 0, 0, 0.15);
+            }
+
+            50% {
+                transform: rotate(calc(var(--base-rot) + 2.5deg)) translate(1.5px, -1px) scale(1.03);
+                box-shadow: 1px 4px 6px rgba(0, 0, 0, 0.22);
+            }
+
+            75% {
+                transform: rotate(calc(var(--base-rot) - 1.5deg)) translate(-1px, -1px) scale(1.01);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.18);
+            }
+
+            100% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+        }
+
+        @keyframes stopMotion3 {
+            0% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+
+            25% {
+                transform: rotate(calc(var(--base-rot) + 2deg)) translate(1.5px, 1px) scale(1.03);
+                box-shadow: 2px 4px 6px rgba(0, 0, 0, 0.20);
+            }
+
+            50% {
+                transform: rotate(calc(var(--base-rot) - 3.5deg)) translate(-1px, -1.5px) scale(0.97);
+                box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.13);
+            }
+
+            75% {
+                transform: rotate(calc(var(--base-rot) + 3deg)) translate(0px, 1.5px) scale(1.02);
+                box-shadow: 3px 4px 7px rgba(0, 0, 0, 0.23);
+            }
+
+            100% {
+                transform: rotate(var(--base-rot)) translate(0px, 0px) scale(1);
+                box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.16);
+            }
+        }
+
+        .r-char {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            padding: 4px 10px;
+            font-size: 28px;
+            font-weight: 700;
+            box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.15);
+            position: relative;
+            transform-origin: center center;
+            will-change: transform, box-shadow;
+            user-select: none;
+            cursor: pointer;
+            transition: transform 0.18s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .r-char:hover {
+            animation-play-state: paused !important;
+            transform: scale(1.22) rotate(0deg) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28) !important;
+            z-index: 10;
+        }
+
+        .ransom-title:active .r-char {
+            transform: scale(0.94) !important;
+        }
+
+        /* Từng chữ cái mang màu sắc, font chữ và nhịp giật stop-motion chậm rãi, thư thái (~0.6s mỗi nhịp) */
+        .c-h1 {
+            background: #ff8fa3;
+            color: #fff;
+            font-family: var(--font-serif);
+            --base-rot: -5deg;
+            animation: stopMotion1 2.40s steps(1) infinite 0.00s;
+        }
+
+        .c-a1 {
+            background: #fff;
+            color: #111;
+            font-family: var(--font-cute);
+            border: 1px solid #ddd;
+            --base-rot: 3deg;
+            animation: stopMotion2 2.50s steps(1) infinite 0.35s;
+        }
+
+        .c-p1 {
+            background: #a8dadc;
+            color: #ff5d8f;
+            font-family: var(--font-cute);
+            --base-rot: -3deg;
+            animation: stopMotion3 2.45s steps(1) infinite 0.70s;
+        }
+
+        .c-p2 {
+            background: #bdb2ff;
+            color: #fff;
+            font-family: var(--font-serif);
+            --base-rot: 4deg;
+            animation: stopMotion1 2.55s steps(1) infinite 0.20s;
+        }
+
+        .c-y1 {
+            background: #fde2e4;
+            color: #111;
+            font-family: var(--font-calligraphy);
+            font-size: 34px;
+            --base-rot: -4deg;
+            animation: stopMotion2 2.60s steps(1) infinite 0.55s;
+        }
+
+        .c-b {
+            background: #fff;
+            color: #e63946;
+            font-family: var(--font-cute);
+            border: 2px solid #e63946;
+            --base-rot: -4deg;
+            animation: stopMotion3 2.40s steps(1) infinite 0.15s;
+        }
+
+        .c-i {
+            background: #7209b7;
+            color: #fff;
+            font-family: var(--font-serif);
+            --base-rot: 2deg;
+            animation: stopMotion1 2.50s steps(1) infinite 0.45s;
+        }
+
+        .c-r {
+            background: #f8edeb;
+            color: #ff758f;
+            font-family: var(--font-calligraphy);
+            font-size: 34px;
+            --base-rot: -5deg;
+            animation: stopMotion2 2.45s steps(1) infinite 0.80s;
+        }
+
+        .c-t {
+            background: #ffbe0b;
+            color: #111;
+            font-family: var(--font-serif);
+            --base-rot: 3deg;
+            animation: stopMotion3 2.55s steps(1) infinite 0.30s;
+        }
+
+        .c-h2 {
+            background: #e9ecef;
+            color: #52b788;
+            font-family: var(--font-cute);
+            --base-rot: -3deg;
+            animation: stopMotion1 2.60s steps(1) infinite 0.65s;
+        }
+
+        .c-d {
+            background: #ffd6ff;
+            color: #111;
+            font-family: var(--font-cute);
+            --base-rot: 4deg;
+            animation: stopMotion2 2.40s steps(1) infinite 0.10s;
+        }
+
+        .c-a2 {
+            background: #ffc6ff;
+            color: #3a0ca3;
+            font-family: var(--font-cute);
+            --base-rot: -2deg;
+            animation: stopMotion3 2.50s steps(1) infinite 0.40s;
+        }
+
+        .c-y2 {
+            background: #fff;
+            color: #111;
+            font-family: var(--font-serif);
+            border: 1.5px solid #111;
+            --base-rot: 5deg;
+            animation: stopMotion1 2.45s steps(1) infinite 0.75s;
+        }
+
+        /* ================= KHUNG ẢNH POLAROID ================= */
+        .polaroid-section {
+            position: relative;
+            width: 245px;
+            margin: 6px auto 15px 15px;
+            z-index: 4;
+        }
+
+        @keyframes stopMotionTape {
+            0%, 100% { transform: translateX(-50%) rotate(-3deg); }
+            50% { transform: translateX(-50%) rotate(-1.5deg) scale(1.01); }
+        }
+
+        .washi-tape {
+            position: absolute;
+            top: -13px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            width: 95px;
+            height: 28px;
+            background-color: #ff8fa3;
+            background-image: radial-gradient(#fff 20%, transparent 20%);
+            background-size: 10px 10px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+            z-index: 6;
+            opacity: 0.92;
+            animation: stopMotionTape 2.8s steps(1) infinite 0.3s;
+        }
+
+        @keyframes stopMotionPolaroid {
+            0%, 100% {
+                transform: rotate(-3.5deg) translate(0px, 0px);
+                box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            }
+            33% {
+                transform: rotate(-2.2deg) translate(0.8px, -1px);
+                box-shadow: 0 10px 22px rgba(0, 0, 0, 0.18);
+            }
+            66% {
+                transform: rotate(-4.2deg) translate(-0.8px, 0.6px);
+                box-shadow: 0 7px 18px rgba(0, 0, 0, 0.13);
+            }
+        }
+
+        .polaroid-frame {
+            background: #fffdfa;
+            padding: 13px 13px 46px 13px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            border: 1px solid #e6e1d6;
+            transform: rotate(-3.5deg);
+            transition: transform 0.3s ease;
+            position: relative;
+            animation: stopMotionPolaroid 2.8s steps(1) infinite;
+        }
+
+        .polaroid-frame:hover {
+            animation-play-state: paused !important;
+            transform: rotate(-1deg) scale(1.02) !important;
+        }
+
+        .polaroid-img-box {
+            width: 100%;
+            height: 215px;
+            background: #f0eae1;
+            overflow: hidden;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .polaroid-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .polaroid-caption {
+            position: absolute;
+            bottom: 10px;
+            left: 0;
+            width: 100%;
+            text-align: center;
+            font-family: var(--font-calligraphy);
+            font-size: 26px;
+            font-weight: 700;
+            color: #222;
+        }
+
+        @keyframes stopMotionBowTie {
+            0%, 100% { transform: rotate(-14deg) scale(1); }
+            50% { transform: rotate(-10deg) scale(1.05); }
+        }
+
+        .bow-tie-sticker {
+            position: absolute;
+            bottom: -24px;
+            left: -26px;
+            width: 86px;
+            height: auto;
+            transform: rotate(-14deg);
+            filter: drop-shadow(2px 5px 6px rgba(0, 0, 0, 0.22));
+            z-index: 10;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: transform 0.3s ease;
+            animation: stopMotionBowTie 2.7s steps(1) infinite 0.6s;
+        }
+
+        .bow-tie-sticker:hover {
+            animation-play-state: paused !important;
+            transform: rotate(-8deg) scale(1.08) !important;
+        }
+
+        /* ================= BỨC THƯ TRÊN THIỆP (ẢNH MAIL.PNG) ================= */
+        .mini-letter-trigger {
+            position: absolute;
+            top: 300px;
+            right: 10px;
+            width: 125px;
+            z-index: 8;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transform: rotate(5deg);
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        @keyframes stopMotionMail {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            33% {
+                transform: translateY(-4px) rotate(-2deg);
+            }
+            66% {
+                transform: translateY(1.5px) rotate(2deg);
+            }
+        }
+
+        .mini-mail-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.24));
+            transition: transform 0.25s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+            animation: stopMotionMail 2.8s steps(1) infinite 0.4s;
+        }
+
+        @keyframes stopMotionSubBadge {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.04) rotate(-1.5deg); }
+        }
+
+        .mini-note-sub {
+            display: inline-block;
+            margin-top: 0px;
+            background: #ffffff;
+            color: #d6336c;
+            border: 1.5px solid #333333;
+            box-shadow: 2px 2px 0 #333333;
+            font-family: var(--font-cute);
+            font-size: 11.5px;
+            font-weight: 700;
+            padding: 3px 11px;
+            border-radius: 14px;
+            white-space: nowrap;
+            transition: transform 0.2s ease, background 0.2s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+            animation: stopMotionSubBadge 2.8s steps(1) infinite 0.4s;
+        }
+
+        .mini-letter-trigger:hover .mini-mail-img {
+            animation-play-state: paused !important;
+            transform: scale(1.08) rotate(-3deg) !important;
+        }
+
+        .mini-letter-trigger:hover .mini-note-sub {
+            animation-play-state: paused !important;
+            transform: scale(1.05) !important;
+            background: #ffe3ec;
+        }
+
+        .mini-letter-trigger:active {
+            transform: scale(0.95);
+        }
+
+        /* ================= CÁC KHUNG ẢNH & STICKER TRANG TRÍ ================= */
+        .cat-sticker {
+            position: absolute;
+            z-index: 6;
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(3px 5px 6px rgba(0, 0, 0, 0.18));
+        }
+
+        .cat-sticker:hover {
+            transform: scale(1.08);
+        }
+
+        .cat-sticker:active {
+            transform: scale(0.96);
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO KHUNG ẢNH MÈO ================= */
+        @keyframes stopMotionFrameA {
+            0%, 100% {
+                transform: rotate(0deg) translate(0px, 0px);
+            }
+            33% {
+                transform: rotate(1.5deg) translate(0.8px, -0.8px);
+            }
+            66% {
+                transform: rotate(-1.2deg) translate(-0.8px, 0.8px);
+            }
+        }
+
+        @keyframes stopMotionFrameB {
+            0%, 100% {
+                transform: rotate(0deg) translate(0px, 0px);
+            }
+            33% {
+                transform: rotate(-1.5deg) translate(-0.8px, -0.6px);
+            }
+            66% {
+                transform: rotate(1.3deg) translate(0.8px, 0.5px);
+            }
+        }
+
+        /* Khung chứa ảnh để bo góc và giấu phần cắt (mask) */
+        .photo-frame-inner {
+            width: 100%;
+            height: 100%;
+            border-radius: 16px;
+            border: 3.5px solid #ffffff;
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.16);
+            overflow: hidden;
+            position: relative;
+            background: #f7f3eb;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cat-top-right .photo-frame-inner {
+            animation: stopMotionFrameA 2.9s steps(1) infinite 0.2s;
+        }
+
+        .cat-bottom-left .photo-frame-inner {
+            animation: stopMotionFrameB 3.1s steps(1) infinite 0.5s;
+        }
+
+        .cat-bottom-right .photo-frame-inner {
+            animation: stopMotionFrameA 2.8s steps(1) infinite 0.8s;
+        }
+
+        .cat-top-right:hover .photo-frame-inner,
+        .cat-bottom-left:hover .photo-frame-inner,
+        .cat-bottom-right:hover .photo-frame-inner {
+            animation-play-state: paused !important;
+            transform: none !important;
+        }
+
+        /* Ảnh của người dùng bên trong khung (có thể zoom/pan/rotate) */
+        .photo-user-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transform-origin: center center;
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        #cat1 {
+            transform: translate(-1px, 2px);
+        }
+
+        #cat2 {
+            transform: translate(0px, -1px);
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO MŨ SINH NHẬT ================= */
+        @keyframes stopMotionHatLeft {
+            0%, 100% {
+                transform: translateX(-50%) translate(-24px, -6px) rotate(-14deg) scale(0.94);
+            }
+            50% {
+                transform: translateX(-50%) translate(-25px, -8px) rotate(-10deg) scale(0.96);
+            }
+        }
+
+        @keyframes stopMotionHatRight {
+            0%, 100% {
+                transform: translateX(-50%) translate(30px, 13px) rotate(34deg) scale(1.54);
+            }
+            50% {
+                transform: translateX(-50%) translate(31px, 11px) rotate(38deg) scale(1.56);
+            }
+        }
+
+        /* Mũ sinh nhật vàng (hat-1.png) và Mũ tiệc Happy Birthday (hat.png) */
+        .hat-sticker-left {
+            position: absolute;
+            top: -46px;
+            left: 50%;
+            transform: translateX(-50%) translate(-24px, -6px) rotate(-14deg) scale(0.94);
+            width: 58px;
+            height: auto;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+            z-index: 10;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: transform 0.25s ease;
+            animation: stopMotionHatLeft 2.9s steps(1) infinite 0.4s;
+        }
+
+        .cat-bottom-left:hover .hat-sticker-left {
+            animation-play-state: paused !important;
+            transform: translateX(-50%) translate(-24px, -6px) rotate(-8deg) scale(1.02) !important;
+        }
+
+        .hat-sticker-right {
+            position: absolute;
+            top: -44px;
+            left: 50%;
+            transform: translateX(-50%) translate(30px, 13px) rotate(34deg) scale(1.54);
+            width: 54px;
+            height: auto;
+            filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.2));
+            z-index: 10;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            transition: transform 0.25s ease;
+            animation: stopMotionHatRight 2.8s steps(1) infinite 0.7s;
+        }
+
+        .cat-bottom-right:hover .hat-sticker-right {
+            animation-play-state: paused !important;
+            transform: translateX(-50%) translate(30px, 13px) rotate(30deg) scale(1.64) !important;
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO MÈO ĐỨNG ================= */
+        @keyframes stopMotionCatStanding {
+            0%, 100% {
+                transform: rotate(0deg) translate(0px, 0px) scale(1);
+            }
+            33% {
+                transform: rotate(2.5deg) translate(0.8px, -1.5px) scale(1.02);
+            }
+            66% {
+                transform: rotate(-2deg) translate(-0.8px, 0.8px) scale(0.99);
+            }
+        }
+
+        /* Bé mèo cam bưng hoa & bánh kem đứng lấp ló */
+        .cat-standing-sticker {
+            position: absolute;
+            top: 275px;
+            right: 122px;
+            width: 82px;
+            height: auto;
+            z-index: 8;
+            cursor: pointer;
+            transform: rotate(-6deg);
+            transition: transform 0.25s ease;
+            filter: drop-shadow(2px 5px 8px rgba(0, 0, 0, 0.22));
+            user-select: none;
+            -webkit-user-drag: none;
+        }
+
+        .cat-standing-sticker img {
+            width: 100%;
+            height: auto;
+            display: block;
+            pointer-events: none;
+            user-select: none;
+            -webkit-user-drag: none;
+            animation: stopMotionCatStanding 2.8s steps(1) infinite 0.5s;
+        }
+
+        .cat-standing-sticker:hover {
+            transform: scale(1.12) rotate(0deg);
+        }
+
+        .cat-standing-sticker:hover img {
+            animation-play-state: paused !important;
+            transform: none !important;
+        }
+
+        .cat-top-right {
+            top: 155px;
+            right: 16px;
+            width: 115px;
+            height: 135px;
+            transform: rotate(4deg);
+        }
+
+        .bottom-collage {
+            width: 100%;
+            margin-top: auto;
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            position: relative;
+            z-index: 6;
+        }
+
+        .cat-bottom-left {
+            width: 135px;
+            height: 155px;
+            position: relative;
+            transform: translate(0px, -54px) rotate(-8deg) scale(1.18);
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cat-bottom-left:hover {
+            transform: translate(0px, -54px) rotate(-4deg) scale(1.23);
+        }
+
+        .cat-bottom-right {
+            width: 135px;
+            height: 160px;
+            position: relative;
+            transform: rotate(3deg);
+            cursor: pointer;
+            transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .cat-bottom-right:hover {
+            transform: rotate(0deg) scale(1.08);
+        }
+
+        /* ================= BÁNH KEM THỔI NẾN (CÓ LỬA / KHÔNG CÓ LỬA) ================= */
+        .cake-interactive {
+            position: absolute;
+            bottom: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 9;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+
+        .cake-interactive:hover {
+            transform: translateX(-50%) scale(1.06);
+        }
+
+        .cake-box {
+            width: 160px;
+            height: 160px;
+            position: relative;
+            /* KHÔNG để overflow: hidden để không bao giờ bị cắt ngọn nến ở trên */
+            overflow: visible;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .cake-img {
+            width: 160px;
+            height: auto;
+            object-fit: contain;
+            filter: drop-shadow(0 6px 14px rgba(0, 0, 0, 0.2));
+            transition: transform 0.2s ease;
+            user-select: none;
+            -webkit-user-drag: none;
+            /* Vị trí chuẩn đã căn chỉnh để lộ trọn vẹn toàn bộ 5 cây nến và ngọn lửa */
+            transform: translateY(-125px);
+            transform-origin: center center;
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO NÚT THỔI NẾN ================= */
+        @keyframes stopMotionBlowHint {
+            0%, 100% {
+                transform: rotate(0deg) scale(1);
+                box-shadow: 2px 2px 0 #333333;
+            }
+            33% {
+                transform: rotate(-2.5deg) scale(1.03) translateY(-1px);
+                box-shadow: 3px 3px 0 #333333;
+            }
+            66% {
+                transform: rotate(2deg) scale(0.98) translateY(1px);
+                box-shadow: 1.5px 2px 0 #333333;
+            }
+        }
+
+        .blow-hint {
+            background: #ffffff;
+            border: 1.5px solid #333333;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-family: var(--font-cute);
+            font-size: 12px;
+            font-weight: 700;
+            color: #d6336c;
+            margin-top: 24px;
+            box-shadow: 2px 2px 0 #333333;
+            white-space: nowrap;
+            z-index: 10;
+            user-select: none;
+            -webkit-user-drag: none;
+            transform-origin: center center;
+            transition: transform 0.2s ease;
+            animation: stopMotionBlowHint 2.6s steps(1) infinite 0.3s;
+        }
+
+        .cake-interactive:hover .blow-hint {
+            animation-play-state: paused !important;
+            transform: scale(1.08) rotate(0deg) !important;
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO HOA TULIP ================= */
+        @keyframes stopMotionFlower {
+            0%, 100% {
+                transform: rotate(6deg) scale(1);
+            }
+            50% {
+                transform: rotate(10deg) scale(1.04) translate(0.8px, -0.8px);
+            }
+        }
+
+        .flower-badge-img {
+            position: absolute;
+            bottom: -18px;
+            right: -24px;
+            width: 86px;
+            height: auto;
+            transform: rotate(6deg);
+            filter: drop-shadow(2px 5px 6px rgba(0, 0, 0, 0.22));
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+            z-index: 10;
+            transition: transform 0.3s ease;
+            animation: stopMotionFlower 3.0s steps(1) infinite 0.6s;
+        }
+
+        .cat-bottom-right:hover .flower-badge-img {
+            animation-play-state: paused !important;
+            transform: rotate(0deg) scale(1.1) !important;
+        }
+
+        /* ================= HIỆU ỨNG STOP MOTION CHO NGÔI SAO LẤP LÁNH ================= */
+        @keyframes stopMotionStar {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg) scale(1);
+            }
+            33% {
+                transform: translateY(-3px) rotate(8deg) scale(1.08);
+            }
+            66% {
+                transform: translateY(2px) rotate(-6deg) scale(0.95);
+            }
+        }
+
+        .star-sticker-img {
+            position: absolute;
+            pointer-events: auto;
+            user-select: none;
+            -webkit-user-drag: none;
+            z-index: 5;
+            filter: drop-shadow(1px 3px 4px rgba(0, 0, 0, 0.16));
+            animation: stopMotionStar 2.7s steps(1) infinite;
+        }
+
+        .star-sticker-img:nth-of-type(even) {
+            animation-delay: 0.9s;
+            animation-duration: 3.1s;
+        }
+
+        .star-sticker-img:nth-of-type(3n) {
+            animation-delay: 1.6s;
+            animation-duration: 2.9s;
+        }
+
+        /* Trái tim bay lên khi chạm vào mèo */
+        .floating-heart {
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            animation: floatUpHeart 1.2s forwards ease-out;
+            font-size: 24px;
+        }
+
+        @keyframes floatUpHeart {
+            0% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(0.6) translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translate(-50%, -50%) scale(1.4) translateY(-90px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Thẻ âm thanh để phát nhạc MP3 -->
+    <audio id="bgAudio" loop></audio>
+
+    <!-- ================= MODAL BỨC THƯ (HIỆN RA KHI VÀO WEB) ================= -->
+    <div class="letter-overlay" id="letterOverlay">
+
+        <!-- Bước 1: Phong bì thư đóng -->
+        <div class="envelope-stage" id="envelopeStage">
+            <div class="envelope-box" id="envelopeBox">
+                <div class="env-flap"></div>
+                <div class="env-paper-preview">
+                    <span>Happy Birthday!</span>
+                    <span class="env-sub-text">Gửi chị Trứngggg</span>
+                </div>
+                <div class="env-pocket"></div>
+                <div class="wax-seal">❤️</div>
+            </div>
+            <div class="click-hint">Ấn để mở</div>
+        </div>
+
+        <!-- Bước 2: Tờ giấy lời chúc hiện ra -->
+        <div class="letter-paper-card" id="letterPaperCard">
+            <div class="letter-header" id="letterTitle">
+                Gửi người đặc biệt! 🎂
+            </div>
+            <div class="letter-body" id="letterContent">
+                Chúc mừng sinh nhật tuổi mới thật rực rỡ nhé! 🎉
+
+                Chúc bạn mỗi ngày đều ngập tràn nụ cười, luôn xinh tươi, hạnh phúc và gặt hái được mọi ước muốn trong
+                cuộc sống.
+
+                Đừng quên nhắm mắt ước một điều thật đẹp và chạm vào chiếc bánh kem để thổi nến nha! 💖✨
+            </div>
+            <div class="letter-footer">
+                <div class="letter-sign" id="letterSign">
+                    — Người gửi yêu thương 💕
+                </div>
+                <button class="btn-close-letter" id="btnCloseLetter">
+                    Đóng thư
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- ================= THIỆP SCRAPBOOK CHÍNH ================= -->
+    <div class="scrapbook-card">
+        <!-- Các sticker ngôi sao kim tuyến lấp lánh dán trang trí -->
+        <img src="images/star.png" class="star-sticker-img star-1" style="top: 36px; left: 22px; width: 34px;"
+            alt="Star 1">
+        <img src="images/star.png" class="star-sticker-img star-2"
+            style="top: 38px; right: 26px; width: 30px; animation-delay: 0.7s;" alt="Star 2">
+        <img src="images/star.png" class="star-sticker-img star-3"
+            style="top: 135px; right: 18px; width: 38px; animation-delay: 1.3s;" alt="Star 3">
+        <img src="images/star.png" class="star-sticker-img star-4"
+            style="bottom: 220px; left: 45%; width: 28px; animation-delay: 1.8s;" alt="Star 4">
+
+        <!-- Dòng chữ HAPPY BIRTHDAY cắt dán -->
+        <div class="ransom-title" id="ransomTitle" title="Chạm vào để bắn pháo hoa!">
+            <div class="ransom-row">
+                <span class="r-char c-h1">H</span>
+                <span class="r-char c-a1">A</span>
+                <span class="r-char c-p1">P</span>
+                <span class="r-char c-p2">P</span>
+                <span class="r-char c-y1">y</span>
+            </div>
+            <div class="ransom-row">
+                <span class="r-char c-b">B</span>
+                <span class="r-char c-i">i</span>
+                <span class="r-char c-r">r</span>
+                <span class="r-char c-t">t</span>
+                <span class="r-char c-h2">h</span>
+                <span class="r-char c-d">d</span>
+                <span class="r-char c-a2">A</span>
+                <span class="r-char c-y2">Y</span>
+            </div>
+        </div>
+
+        <!-- Khung ảnh Polaroid ảnh chính -->
+        <div class="polaroid-section" id="polaroidWrap">
+            <div class="washi-tape"></div>
+            <div class="polaroid-frame">
+                <div class="polaroid-img-box">
+                    <img id="mainPhoto" class="photo-user-img" src="images/anh-chinh.jpg" alt="Ảnh sinh nhật">
+                </div>
+                <div class="polaroid-caption" id="polaroidCaption">
+                    Trứng Xinh ♡
+                </div>
+            </div>
+            <!-- Sticker nơ lụa xanh thay thế cho emoji dâu tây -->
+            <img src="images/bow-tie.png" class="bow-tie-sticker" alt="Chiếc nơ xanh xinh xắn">
+        </div>
+
+        <!-- Khung ảnh 1 (Góc phải trên) -->
+        <div class="cat-sticker cat-top-right" id="cat1Wrap" title="Chạm vào để thả tim!">
+            <div class="photo-frame-inner">
+                <img id="cat1" class="photo-user-img" src="images/meo-1.jpg" alt="Ảnh 1">
+            </div>
+        </div>
+
+        <!-- Bức thư trên thiệp (ảnh mail + chữ ấn vào để mở) -->
+        <div class="mini-letter-trigger" id="miniLetterOnCard" title="Chạm để mở lại bức thư chúc mừng">
+            <img src="images/mail.png" class="mini-mail-img" id="miniMailImg" alt="Bức thư gửi chị">
+            <span class="mini-note-sub" id="miniNoteText">Ấn vào để mở</span>
+        </div>
+
+        <!-- Bé mèo cam bưng hoa & bánh kem (cat.png) đứng lấp ló cạnh thư -->
+        <div class="cat-standing-sticker" id="catStandingWrap" title="Chạm vào mèo cưng để thả tim!">
+            <img src="images/cat.png" alt="Bé mèo bưng hoa">
+        </div>
+
+        <!-- Khu vực phía dưới: Ảnh 2 + Bánh kem thổi nến + Ảnh 3 -->
+        <div class="bottom-collage">
+            <!-- Khung ảnh 2 (Góc trái dưới) đội mũ vàng ngôi sao hat-1.png -->
+            <div class="cat-bottom-left" id="cat2Wrap" title="Chạm vào để thả tim!">
+                <img src="images/hat-1.png" class="hat-sticker-left" alt="Mũ sinh nhật vàng">
+                <div class="photo-frame-inner">
+                    <img id="cat2" class="photo-user-img" src="images/meo-2.jpg" alt="Ảnh 2">
+                </div>
+            </div>
+
+            <!-- Bánh kem sinh nhật thổi nến tương tác (chuyển đổi giữa có lửa và không có lửa) -->
+            <div class="cake-interactive" id="cakeTrigger" title="Chạm vào để thổi tắt nến nhé!">
+                <div class="cake-box">
+                    <img id="cakeImg" src="images/cake_with_fire.png" class="cake-img" alt="Bánh sinh nhật">
+                </div>
+                <div class="blow-hint" id="blowHintText">💨 Chạm để thổi nến</div>
+            </div>
+
+            <!-- Khung ảnh 3 (Góc phải dưới) đội mũ Happy Birthday hat.png & ôm hoa tulip flower.png -->
+            <div class="cat-bottom-right" id="cat3Wrap" title="Chạm vào để thả tim!">
+                <img src="images/hat.png" class="hat-sticker-right" alt="Mũ Happy Birthday">
+                <div class="photo-frame-inner">
+                    <img id="cat3" class="photo-user-img" src="images/meo-3.jpg" alt="Ảnh 3">
+                </div>
+                <!-- Bé mèo ôm hoa tulip thật -->
+                <img src="images/flower.png" class="flower-badge-img" alt="Bé mèo ôm hoa tulip">
+            </div>
+        </div>
+    </div>
+
+    <!-- =====================================================================
+         PHẦN CẤU HÌNH (BẠN CHỈ CẦN CHỈNH SỬA TẠI ĐÂY)
+         ===================================================================== -->
+    <script>
+        const CAU_HINH = {
+            /* 1. ĐƯỜNG DẪN ẢNH:
+               Bạn chỉ cần copy file ảnh của bạn vào thư mục "images/" 
+               hoặc đổi tên file ở dưới đây theo ý bạn. */
+            nenThiep: "images/bg.png",          // Ảnh nền của tấm thiệp sinh nhật
+            anhChinh: "images/anh-chinh.jpg",    // Ảnh người sinh nhật trong khung Polaroid
+            anhMeo1: "images/meo-1.jpg",         // Mèo góc trên bên phải
+            anhMeo2: "images/meo-2.jpg",         // Mèo góc dưới bên trái
+            anhMeo3: "images/meo-3.jpg",         // Mèo góc dưới bên phải
+            anhThu: "images/mail.png",           // Bức thư mail trên thiệp
+
+            /* 2. ĐƯỜNG DẪN NHẠC:
+               Nếu bạn có file nhạc MP3, hãy để vào cùng thư mục và điền tên file vào đây (Ví dụ: "nhac.mp3").
+               Nếu để trống "", web sẽ tự động phát giai điệu Happy Birthday hộp nhạc du dương có sẵn! */
+            nhacMp3: "nhac.mp3",
+
+            /* 3. LỜI CHÚC TRONG BỨC THƯ: */
+            tieuDeThu: "Gửi chị Trang (trứng)",
+
+            noiDungLoiChuc: `Chúc chị một tuổi mới thật tươi trẻ, rực rỡ nhé!
+
+Chúc chị mỗi ngày đều ngập tràn nụ cười, luôn xinh đẹp, hạnh phúc và gặt hái được mọi ước muốn trong cuộc sống.
+
+Sau có giàu thì nhận thêm một người em nuôi nữa nha!!!!`,
+
+            chuKy: "— e Tùng    ",
+
+            /* 4. CHỮ DƯỚI KHUNG ẢNH POLAROID: */
+            chuDuoiAnh: "Trứng Xinh ♡",
+
+            /* 5. CHỮ TRÊN BỨC THƯ NHỎ GẮN TRÊN THIỆP: */
+            chuThuNho: "Ấn vào để mở"
+        };
+
+        /* =====================================================================
+           TỰ ĐỘNG NẠP CẤU HÌNH VÀO TRANG WEB
+           ===================================================================== */
+        const scrapbookCardEl = document.querySelector('.scrapbook-card');
+        const mainPhotoEl = document.getElementById('mainPhoto');
+        const cat1El = document.getElementById('cat1');
+        const cat2El = document.getElementById('cat2');
+        const cat3El = document.getElementById('cat3');
+        const miniMailImg = document.getElementById('miniMailImg');
+        const letterTitleEl = document.getElementById('letterTitle');
+        const letterContentEl = document.getElementById('letterContent');
+        const letterSignEl = document.getElementById('letterSign');
+        const polaroidCapEl = document.getElementById('polaroidCaption');
+        const miniNoteTextEl = document.getElementById('miniNoteText');
+        const bgAudioEl = document.getElementById('bgAudio');
+
+        if (CAU_HINH.nenThiep && scrapbookCardEl) {
+            scrapbookCardEl.style.backgroundImage = `url('${CAU_HINH.nenThiep}')`;
+        }
+        if (CAU_HINH.anhChinh) mainPhotoEl.src = CAU_HINH.anhChinh;
+        if (CAU_HINH.anhMeo1) cat1El.src = CAU_HINH.anhMeo1;
+        if (CAU_HINH.anhMeo2) cat2El.src = CAU_HINH.anhMeo2;
+        if (CAU_HINH.anhMeo3) cat3El.src = CAU_HINH.anhMeo3;
+        if (CAU_HINH.anhThu && miniMailImg) miniMailImg.src = CAU_HINH.anhThu;
+
+        if (CAU_HINH.tieuDeThu) letterTitleEl.textContent = CAU_HINH.tieuDeThu;
+        if (CAU_HINH.noiDungLoiChuc) letterContentEl.textContent = CAU_HINH.noiDungLoiChuc;
+        if (CAU_HINH.chuKy) letterSignEl.textContent = CAU_HINH.chuKy;
+        if (CAU_HINH.chuDuoiAnh) polaroidCapEl.textContent = CAU_HINH.chuDuoiAnh;
+        if (CAU_HINH.chuThuNho && miniNoteTextEl) miniNoteTextEl.innerHTML = CAU_HINH.chuThuNho;
+
+        if (CAU_HINH.nhacMp3) {
+            bgAudioEl.src = CAU_HINH.nhacMp3;
+        }
+
+        /* =====================================================================
+           LOGIC MỞ PHONG BÌ & BỨC THƯ
+           ===================================================================== */
+        const letterOverlay = document.getElementById('letterOverlay');
+        const envelopeStage = document.getElementById('envelopeStage');
+        const envelopeBox = document.getElementById('envelopeBox');
+        const letterPaperCard = document.getElementById('letterPaperCard');
+        const btnCloseLetter = document.getElementById('btnCloseLetter');
+        const miniLetterOnCard = document.getElementById('miniLetterOnCard');
+
+        // Bấm vào phong bì để mở ra lời chúc
+        envelopeStage.addEventListener('click', () => {
+            envelopeBox.classList.add('opening');
+            batNhac();
+            banPhaoGiay();
+
+            setTimeout(() => {
+                envelopeStage.classList.add('hidden');
+                letterPaperCard.classList.add('show');
+            }, 500);
+        });
+
+        // Bấm đóng thư để xem thiệp
+        btnCloseLetter.addEventListener('click', () => {
+            letterOverlay.classList.add('hidden');
+        });
+
+        // Bấm vào vùng mờ bên ngoài để đóng thư
+        letterOverlay.addEventListener('click', (e) => {
+            if (e.target === letterOverlay && letterPaperCard.classList.contains('show')) {
+                letterOverlay.classList.add('hidden');
+            }
+        });
+
+        // Bấm vào bức thư nhỏ trên thiệp để xem lại lời chúc
+        function moLaiThu() {
+            envelopeStage.classList.add('hidden');
+            letterPaperCard.classList.add('show');
+            letterOverlay.classList.remove('hidden');
+            banPhaoGiay();
+            batNhac();
+        }
+
+        miniLetterOnCard.addEventListener('click', moLaiThu);
+
+        /* =====================================================================
+           BÁNH KEM THỔI NẾN (ĐỔI ẢNH CÓ LỬA <-> KHÔNG CÓ LỬA) & PHÁO GIẤY
+           ===================================================================== */
+        const cakeTrigger = document.getElementById('cakeTrigger');
+        const cakeImg = document.getElementById('cakeImg');
+        const blowHintText = document.getElementById('blowHintText');
+        let candleLit = true;
+
+        // Tải trước 2 trạng thái ảnh để đổi ảnh tức thì không bị chớp giật
+        const anhCoLua = new Image();
+        anhCoLua.src = "images/cake_with_fire.png";
+        const anhTatLua = new Image();
+        anhTatLua.src = "images/cake_no_fire.png";
+
+        function banPhaoGiay() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 85,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#ff8fa3', '#ffbe0b', '#bdb2ff', '#a8dadc', '#fb6f92']
+                });
+            }
+        }
+
+        cakeTrigger.addEventListener('click', () => {
+            if (candleLit) {
+                // Thổi tắt nến: chuyển sang ảnh bánh không có lửa
+                cakeImg.src = "images/cake_no_fire.png";
+                blowHintText.textContent = "Chạm để thắp lại";
+                candleLit = false;
+                banPhaoGiay();
+            } else {
+                // Thắp lại nến: chuyển sang ảnh bánh có lửa
+                cakeImg.src = "images/cake_with_fire.png";
+                blowHintText.textContent = "💨 Chạm để thổi nến";
+                candleLit = true;
+            }
+        });
+
+        // Bấm vào chữ Happy Birthday cũng bắn pháo
+        document.getElementById('ransomTitle').addEventListener('click', banPhaoGiay);
+
+        /* =====================================================================
+           TƯƠNG TÁC THẢ TIM KHI BẤM VÀO MÈO
+           ===================================================================== */
+        function taoTimBay(x, y) {
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            const icons = ['💖', '💕', '✨', '🐾', '🌸', '😻'];
+            heart.textContent = icons[Math.floor(Math.random() * icons.length)];
+            heart.style.left = x + 'px';
+            heart.style.top = y + 'px';
+            document.body.appendChild(heart);
+            setTimeout(() => heart.remove(), 1200);
+        }
+
+        ['cat1Wrap', 'cat2Wrap', 'cat3Wrap', 'catStandingWrap'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.addEventListener('click', (e) => {
+                    const rect = el.getBoundingClientRect();
+                    const x = e.clientX || (rect.left + rect.width / 2);
+                    const y = e.clientY || (rect.top + rect.height / 2);
+                    taoTimBay(x, y);
+                    taoTimBay(x - 20, y + 10);
+                    taoTimBay(x + 20, y + 10);
+                });
+            }
+        });
+
+        /* =====================================================================
+           HỆ THỐNG ÂM THANH: HỘP NHẠC SINH NHẬT CAO CẤP (MUSIC BOX / CELESTA)
+           - Tự động phát khi người nhận mở phong bì bức thư.
+           - Âm sắc hộp nhạc trong trẻo, ngân vang, có bass và hòa âm đa bè du dương.
+           ===================================================================== */
+        let dangPhatNhac = false;
+        let audioCtx = null;
+        let melodyTimer = null;
+
+        // Bản phối 50 nốt hộp nhạc Happy Birthday: Giai điệu + Hòa âm + Âm bass + Chuông ngân lấp lánh
+        const BAN_PHOI_HOP_NHAC = [
+            // --- Đoạn 1: Happy Birthday to you ---
+            { t: 0.00, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 0.35, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 0.70, f: 293.66, d: 0.70, v: 0.24 }, // D4
+            { t: 0.70, f: 174.61, d: 0.90, v: 0.16 }, // F3 (Bass nền)
+            { t: 1.40, f: 261.63, d: 0.70, v: 0.22 }, // C4
+            { t: 1.40, f: 220.00, d: 0.60, v: 0.13 }, // A3 (Bè hòa âm)
+            { t: 2.10, f: 349.23, d: 0.70, v: 0.25 }, // F4
+            { t: 2.10, f: 261.63, d: 0.60, v: 0.14 }, // C4 (Bè hòa âm)
+            { t: 2.80, f: 329.63, d: 1.30, v: 0.24 }, // E4
+            { t: 2.80, f: 130.81, d: 1.40, v: 0.16 }, // C3 (Bass trầm)
+            { t: 3.50, f: 196.00, d: 0.80, v: 0.12 }, // G3 (Rải nốt đệm)
+
+            // --- Đoạn 2: Happy Birthday to you ---
+            { t: 4.40, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 4.75, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 5.10, f: 293.66, d: 0.70, v: 0.24 }, // D4
+            { t: 5.10, f: 130.81, d: 0.90, v: 0.16 }, // C3 (Bass)
+            { t: 5.80, f: 261.63, d: 0.70, v: 0.22 }, // C4
+            { t: 5.80, f: 196.00, d: 0.60, v: 0.13 }, // G3 (Bè)
+            { t: 6.50, f: 392.00, d: 0.70, v: 0.26 }, // G4
+            { t: 6.50, f: 293.66, d: 0.60, v: 0.14 }, // D4 (Bè)
+            { t: 7.20, f: 349.23, d: 1.30, v: 0.25 }, // F4
+            { t: 7.20, f: 174.61, d: 1.40, v: 0.16 }, // F3 (Bass)
+            { t: 7.90, f: 261.63, d: 0.80, v: 0.12 }, // C4 (Rải đệm)
+
+            // --- Đoạn 3: Happy Birthday dear friend ---
+            { t: 8.80, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 9.15, f: 261.63, d: 0.35, v: 0.22 }, // C4
+            { t: 9.50, f: 523.25, d: 0.70, v: 0.26 }, // C5 (Cao trào)
+            { t: 9.50, f: 174.61, d: 0.90, v: 0.16 }, // F3 (Bass)
+            { t: 9.50, f: 349.23, d: 0.70, v: 0.14 }, // F4 (Bè)
+            { t: 10.20, f: 440.00, d: 0.70, v: 0.25 }, // A4
+            { t: 10.20, f: 261.63, d: 0.60, v: 0.13 }, // C4 (Bè)
+            { t: 10.90, f: 349.23, d: 0.70, v: 0.24 }, // F4
+            { t: 10.90, f: 220.00, d: 0.60, v: 0.13 }, // A3 (Bè)
+            { t: 11.60, f: 329.63, d: 0.70, v: 0.23 }, // E4
+            { t: 11.60, f: 233.08, d: 0.80, v: 0.16 }, // Bb3 (Bass nốt rơi)
+            { t: 12.30, f: 293.66, d: 1.20, v: 0.22 }, // D4
+            { t: 12.30, f: 174.61, d: 1.20, v: 0.13 }, // F3 (Hòa âm)
+
+            // --- Đoạn 4: Happy Birthday to you ---
+            { t: 13.70, f: 466.16, d: 0.35, v: 0.24 }, // Bb4
+            { t: 14.05, f: 466.16, d: 0.35, v: 0.24 }, // Bb4
+            { t: 14.40, f: 440.00, d: 0.70, v: 0.25 }, // A4
+            { t: 14.40, f: 174.61, d: 0.90, v: 0.16 }, // F3 (Bass)
+            { t: 14.40, f: 261.63, d: 0.70, v: 0.14 }, // C4 (Bè)
+            { t: 15.10, f: 349.23, d: 0.70, v: 0.24 }, // F4
+            { t: 15.10, f: 220.00, d: 0.60, v: 0.13 }, // A3 (Bè)
+            { t: 15.80, f: 392.00, d: 0.70, v: 0.25 }, // G4
+            { t: 15.80, f: 261.63, d: 0.60, v: 0.14 }, // C4 (Bè)
+            { t: 16.50, f: 349.23, d: 2.20, v: 0.26 }, // F4 (Nốt kết chính)
+            { t: 16.50, f: 698.46, d: 2.20, v: 0.16 }, // F5 (Chuông ngân lấp lánh)
+            { t: 16.50, f: 174.61, d: 2.50, v: 0.16 }, // F3 (Bass kết)
+            { t: 16.85, f: 261.63, d: 2.00, v: 0.12 }, // C4 (Rải hợp âm kết)
+            { t: 17.20, f: 349.23, d: 2.00, v: 0.12 }, // F4 (Rải hợp âm kết)
+            { t: 17.55, f: 440.00, d: 2.00, v: 0.12 }  // A4 (Rải hợp âm kết ngân dài)
+        ];
+
+        function phatNotHopNhac(freq, startTime, duration, velocity, outputNode) {
+            if (!audioCtx) return;
+
+            // 1. Dao động chính (Sine - âm sắc ấm trong trẻo)
+            const osc1 = audioCtx.createOscillator();
+            osc1.type = 'sine';
+            osc1.frequency.setValueAtTime(freq, startTime);
+
+            // 2. Họa âm chuông 2x (Triangle - tạo độ ngân chuông cơ học)
+            const osc2 = audioCtx.createOscillator();
+            osc2.type = 'triangle';
+            osc2.frequency.setValueAtTime(freq * 2, startTime);
+
+            // 3. Họa âm leng keng 3.01x (đặc trưng thanh kim loại của hộp nhạc / celesta)
+            const osc3 = audioCtx.createOscillator();
+            osc3.type = 'sine';
+            osc3.frequency.setValueAtTime(freq * 3.01, startTime);
+
+            const gain1 = audioCtx.createGain();
+            const gain2 = audioCtx.createGain();
+            const gain3 = audioCtx.createGain();
+
+            const decayTime = duration + 0.65;
+
+            // Đòn gõ nốt hộp nhạc (pluck attack < 0.005s) rồi ngân dài giảm dần
+            gain1.gain.setValueAtTime(0.0001, startTime);
+            gain1.gain.linearRampToValueAtTime(velocity * 0.75, startTime + 0.005);
+            gain1.gain.exponentialRampToValueAtTime(0.0001, startTime + decayTime);
+
+            gain2.gain.setValueAtTime(0.0001, startTime);
+            gain2.gain.linearRampToValueAtTime(velocity * 0.22, startTime + 0.004);
+            gain2.gain.exponentialRampToValueAtTime(0.0001, startTime + decayTime * 0.55);
+
+            gain3.gain.setValueAtTime(0.0001, startTime);
+            gain3.gain.linearRampToValueAtTime(velocity * 0.12, startTime + 0.003);
+            gain3.gain.exponentialRampToValueAtTime(0.0001, startTime + decayTime * 0.35);
+
+            osc1.connect(gain1);
+            osc2.connect(gain2);
+            osc3.connect(gain3);
+
+            gain1.connect(outputNode);
+            gain2.connect(outputNode);
+            gain3.connect(outputNode);
+
+            osc1.start(startTime);
+            osc2.start(startTime);
+            osc3.start(startTime);
+
+            osc1.stop(startTime + decayTime);
+            osc2.stop(startTime + decayTime);
+            osc3.stop(startTime + decayTime);
+        }
+
+        function phatGiaiDieuDienTu() {
+            if (!dangPhatNhac) return;
+            if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+
+            // Kênh trộn âm Master với bộ lọc ấm
+            const masterGain = audioCtx.createGain();
+            masterGain.gain.setValueAtTime(0.85, audioCtx.currentTime);
+
+            const warmFilter = audioCtx.createBiquadFilter();
+            warmFilter.type = 'lowpass';
+            warmFilter.frequency.setValueAtTime(3400, audioCtx.currentTime);
+
+            // Hiệu ứng không gian vang vọng (Reverb / Delay) ấm áp
+            const delayNode = audioCtx.createDelay();
+            delayNode.delayTime.setValueAtTime(0.24, audioCtx.currentTime);
+
+            const delayFilter = audioCtx.createBiquadFilter();
+            delayFilter.type = 'lowpass';
+            delayFilter.frequency.setValueAtTime(2200, audioCtx.currentTime);
+
+            const delayGain = audioCtx.createGain();
+            delayGain.gain.setValueAtTime(0.20, audioCtx.currentTime);
+
+            masterGain.connect(warmFilter);
+            warmFilter.connect(audioCtx.destination);
+
+            warmFilter.connect(delayNode);
+            delayNode.connect(delayFilter);
+            delayFilter.connect(delayGain);
+            delayGain.connect(audioCtx.destination);
+            delayGain.connect(delayNode); // feedback nhẹ
+
+            const startTime = audioCtx.currentTime + 0.15;
+            let maxEndTime = 0;
+
+            BAN_PHOI_HOP_NHAC.forEach(note => {
+                const noteStart = startTime + note.t;
+                phatNotHopNhac(note.f, noteStart, note.d, note.v, masterGain);
+                if (note.t + note.d > maxEndTime) {
+                    maxEndTime = note.t + note.d;
+                }
+            });
+
+            // Lặp lại giai điệu sau một khoảng nghỉ nhẹ
+            melodyTimer = setTimeout(() => {
+                if (dangPhatNhac && (!bgAudioEl.src || bgAudioEl.paused)) {
+                    phatGiaiDieuDienTu();
+                }
+            }, (maxEndTime + 1.2) * 1000);
+        }
+
+        function batNhac() {
+            if (dangPhatNhac) return;
+            dangPhatNhac = true;
+
+            if (CAU_HINH.nhacMp3 && bgAudioEl.src && !bgAudioEl.error) {
+                bgAudioEl.play().catch(() => {
+                    phatGiaiDieuDienTu();
+                });
+            } else {
+                phatGiaiDieuDienTu();
+            }
+        }
+
+        /* =====================================================================
+           HỆ THỐNG ROUTE TỰ ĐỘNG: THIỆP CHÍNH (SẠCH SẼ) vs CHẾ ĐỘ SỬA (DEBUG)
+           - Khi mở bình thường ("cmsn.html"): Thiệp sạch sẽ 100%, không nút debug thừa.
+           - Khi mở route sửa ("chinh-sua.html" hoặc "cmsn.html?edit=1" hoặc bấm Ctrl+Shift+E):
+             Bật đầy đủ bảng công cụ tùy chỉnh (Bánh kem, Nút thổi nến, Ảnh, Mũ, Sticker...)
+           ===================================================================== */
+        const STORAGE_KEY = 'CMSN_CUSTOM_LAYOUT_V4';
+        const urlParams = new URLSearchParams(window.location.search);
+        const hasEditParam = urlParams.has('edit') || window.location.hash.toLowerCase().includes('edit');
+        if (!hasEditParam) {
+            sessionStorage.removeItem('CMSN_EDIT_MODE');
+        }
+        const isEditMode = hasEditParam || sessionStorage.getItem('CMSN_EDIT_MODE') === '1';
+
+        // Phím tắt nhanh: Bấm Ctrl + Shift + E để mở ngay chế độ chỉnh sửa
+        window.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'e') {
+                e.preventDefault();
+                sessionStorage.setItem('CMSN_EDIT_MODE', '1');
+                window.location.href = 'cmsn.html?edit=1#edit';
+            }
+        });
+
+        // Danh sách các phần tử có thể căn chỉnh (đã nạp sẵn tọa độ chuẩn đẹp)
+        const DEBUG_ITEMS = [
+            // --- 🎂 BÁNH KEM & NÚT THỔI NẾN ---
+            { id: 'blowHint', group: 'cake', name: '💨 Nút thổi nến (Chữ gợi ý)', selector: '#blowHintText', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+            { id: 'cakeImg', group: 'cake', name: '🎂 Riêng ảnh Bánh kem (9:16)', selector: '#cakeImg', x: 0, y: -125, scale: 1, rotate: 0, base: '' },
+            { id: 'cakeTrigger', group: 'cake', name: '🎂 Cả cụm Bánh kem', selector: '#cakeTrigger', x: 0, y: 0, scale: 1, rotate: 0, base: 'translateX(-50%)' },
+
+            // --- 📸 ẢNH CỦA BẠN (Căn chỉnh bên trong khung) ---
+            { id: 'mainPhoto', group: 'photo', name: '🖼️ Ảnh chính Polaroid (Bên trong)', selector: '#mainPhoto', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+            { id: 'cat1Photo', group: 'photo', name: '🌸 Ảnh 1 - Trên phải (Bên trong)', selector: '#cat1', x: -1, y: 2, scale: 1, rotate: 0, base: '' },
+            { id: 'cat2Photo', group: 'photo', name: '🌸 Ảnh 2 - Dưới trái (Bên trong)', selector: '#cat2', x: 0, y: -1, scale: 1, rotate: 0, base: '' },
+            { id: 'cat3Photo', group: 'photo', name: '🌸 Ảnh 3 - Dưới phải (Bên trong)', selector: '#cat3', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+
+            // --- 🔲 CẢ KHUNG ẢNH (Di chuyển khung trên thiệp) ---
+            { id: 'polaroidWrap', group: 'frame', name: '🖼️ Cả khung Polaroid', selector: '#polaroidWrap', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+            { id: 'cat1Wrap', group: 'frame', name: '🔲 Cả khung ảnh 1 (Trên phải)', selector: '#cat1Wrap', x: 0, y: 0, scale: 1, rotate: 4, base: '' },
+            { id: 'cat2Wrap', group: 'frame', name: '🔲 Cả khung ảnh 2 (Dưới trái)', selector: '#cat2Wrap', x: 0, y: -54, scale: 1.18, rotate: -8, base: '' },
+            { id: 'cat3Wrap', group: 'frame', name: '🔲 Cả khung ảnh 3 (Dưới phải)', selector: '#cat3Wrap', x: 0, y: 0, scale: 1, rotate: 3, base: '' },
+
+            // --- 🎀 PHỤ KIỆN & STICKER ---
+            { id: 'hatLeft', group: 'item', name: '👑 Mũ vàng nón sinh nhật trái (hat-1.png)', selector: '.hat-sticker-left', x: -24, y: -6, scale: 0.94, rotate: -14, base: 'translateX(-50%)' },
+            { id: 'hatRight', group: 'item', name: '🎩 Mũ Happy Birthday phải (hat.png)', selector: '.hat-sticker-right', x: 30, y: 13, scale: 1.54, rotate: 34, base: 'translateX(-50%)' },
+            { id: 'flowerBadge', group: 'item', name: '💐 Bé mèo ôm hoa tulip (flower.png)', selector: '.flower-badge-img', x: 0, y: 0, scale: 1, rotate: 6, base: '' },
+            { id: 'bowTie', group: 'item', name: '🎀 Nơ xanh Polaroid (bow-tie.png)', selector: '.bow-tie-sticker', x: 0, y: 0, scale: 1, rotate: -14, base: '' },
+            { id: 'catStanding', group: 'item', name: '🐱 Mèo cam bưng hoa (cat.png)', selector: '#catStandingWrap', x: 0, y: 0, scale: 1, rotate: -6, base: '' },
+            { id: 'miniLetter', group: 'item', name: '💌 Bức thư trên thiệp (mail.png)', selector: '#miniLetterOnCard', x: 0, y: 0, scale: 1, rotate: 5, base: '' },
+
+            // --- ⭐ NGÔI SAO TRANG TRÍ ---
+            { id: 'star1', group: 'star', name: '⭐ Ngôi sao 1 (trên trái)', selector: '.star-1', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+            { id: 'star2', group: 'star', name: '⭐ Ngôi sao 2 (trên phải)', selector: '.star-2', x: 0, y: 0, scale: 1, rotate: 0, base: '' },
+            { id: 'star3', group: 'star', name: '⭐ Ngôi sao 3 (giữa phải)', selector: '.star-3', x: 0, y: 0, scale: 1.48, rotate: 0, base: '' },
+            { id: 'star4', group: 'star', name: '⭐ Ngôi sao 4 (dưới)', selector: '.star-4', x: 0, y: 0, scale: 1, rotate: 0, base: '' }
+        ];
+
+        // Hàm áp dụng transform cho 1 phần tử
+        function applyTransform(it) {
+            const el = document.querySelector(it.selector);
+            if (!el) return;
+            const baseStr = it.base ? it.base + ' ' : '';
+            el.style.transform = `${baseStr}translate(${it.x}px, ${it.y}px) rotate(${it.rotate}deg) scale(${it.scale})`;
+        }
+
+        // Tự động nạp vị trí lưu trong LocalStorage (nếu người dùng đã chỉnh sửa)
+        let savedData = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null');
+        if (!savedData) {
+            // Nạp từ bản lưu V3 nếu có và tự động sửa vị trí bức thư bị lệch bay khỏi màn hình
+            const oldData = JSON.parse(localStorage.getItem('CMSN_CUSTOM_LAYOUT_V3') || '{}');
+            savedData = { ...oldData };
+            if (savedData.miniLetter && (savedData.miniLetter.x >= 100 || savedData.miniLetter.scale > 1.4)) {
+                savedData.miniLetter = { x: 0, y: 0, scale: 1, rotate: 6 };
+            }
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+        }
+
+        DEBUG_ITEMS.forEach(it => {
+            if (savedData[it.id]) {
+                Object.assign(it, savedData[it.id]);
+                applyTransform(it);
+            }
+        });
+
+        // NẾU KHÔNG PHẢI CHẾ ĐỘ SỬA: Dừng lại tại đây để giữ thiệp nguyên bản sạch đẹp
+        if (isEditMode) {
+            // Tự động ẩn phong bì mở đầu trong chế độ chỉnh sửa để không che màn hình thiệp
+            if (letterOverlay) letterOverlay.classList.add('hidden');
+
+            // ================= KHỞI TẠO BỘ GIAO DIỆN CHỈNH SỬA =================
+            const styleEl = document.createElement('style');
+            styleEl.id = 'debugEditorStyles';
+            styleEl.textContent = `
+                .debug-panel {
+                    position: fixed;
+                    bottom: 16px;
+                    right: 16px;
+                    width: 335px;
+                    background: rgba(20, 22, 34, 0.96);
+                    backdrop-filter: blur(14px);
+                    border: 2px solid #00f2fe;
+                    border-radius: 14px;
+                    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.6), 0 0 20px rgba(0, 242, 254, 0.25);
+                    color: #ffffff;
+                    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                    font-size: 13px;
+                    z-index: 100000;
+                    user-select: none;
+                }
+                .debug-panel.minimized { display: none; }
+                .debug-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 11px 14px;
+                    background: linear-gradient(90deg, #00f2fe, #4facfe);
+                    color: #111111;
+                    font-weight: 800;
+                    border-radius: 11px 11px 0 0;
+                    font-size: 13px;
+                }
+                .debug-hdr-btns { display: flex; gap: 6px; align-items: center; }
+                .debug-btn-icon {
+                    background: rgba(0, 0, 0, 0.15);
+                    border: 1px solid rgba(0, 0, 0, 0.25);
+                    border-radius: 5px;
+                    font-size: 13px;
+                    font-weight: 900;
+                    color: #111;
+                    cursor: pointer;
+                    padding: 3px 8px;
+                    line-height: 1;
+                }
+                .debug-btn-icon:hover { background: rgba(0, 0, 0, 0.3); }
+                .debug-btn-exit {
+                    background: #e63946;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    font-size: 11.5px;
+                    font-weight: 800;
+                    padding: 4px 9px;
+                    cursor: pointer;
+                }
+                .debug-btn-exit:hover { background: #d62828; }
+                .debug-body { padding: 12px 14px; max-height: 80vh; overflow-y: auto; }
+                .debug-row { margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+                .debug-select {
+                    width: 100%;
+                    padding: 8px 10px;
+                    background: #272a3d;
+                    color: #00f2fe;
+                    border: 1.5px solid #00f2fe;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    font-weight: 700;
+                    outline: none;
+                    cursor: pointer;
+                }
+                .debug-select optgroup { background: #181926; color: #ffb703; font-weight: 800; font-size: 12px; }
+                .debug-select option { background: #272a3d; color: #ffffff; font-weight: 500; }
+                .debug-control-group {
+                    margin-bottom: 9px;
+                    background: #1c1e2e;
+                    padding: 7px 10px;
+                    border-radius: 8px;
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                }
+                .debug-slider-header {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 4px;
+                    font-size: 12px;
+                }
+                .debug-val { color: #00f2fe; font-weight: 800; font-family: monospace; font-size: 13px; }
+                .debug-range { width: 100%; accent-color: #00f2fe; cursor: pointer; height: 6px; }
+                .debug-quick-btns { display: flex; gap: 4px; margin-top: 5px; justify-content: flex-end; }
+                .debug-mini-btn {
+                    background: #2c2f46;
+                    border: 1px solid #484c6e;
+                    color: #d1d5db;
+                    font-size: 11px;
+                    font-weight: 700;
+                    padding: 2px 7px;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
+                .debug-mini-btn:hover { background: #00f2fe; color: #111; }
+                .debug-dpad {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 4px;
+                    margin: 10px 0;
+                    background: #1c1e2e;
+                    padding: 8px;
+                    border-radius: 8px;
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                }
+                .debug-dpad-row { display: flex; gap: 6px; }
+                .debug-dbtn {
+                    background: #2c2f46;
+                    border: 1px solid #555;
+                    color: #fff;
+                    padding: 5px 12px;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-size: 12px;
+                    font-weight: 700;
+                }
+                .debug-dbtn:hover { background: #00f2fe; color: #000; }
+                .debug-actions { display: flex; flex-direction: column; gap: 7px; margin-top: 12px; }
+                .debug-act-btn {
+                    width: 100%;
+                    padding: 10px 12px;
+                    border-radius: 8px;
+                    border: none;
+                    font-weight: 800;
+                    cursor: pointer;
+                    font-size: 13px;
+                    text-align: center;
+                    transition: transform 0.12s;
+                }
+                .debug-act-btn:active { transform: scale(0.97); }
+                .btn-copy { background: linear-gradient(90deg, #00f2fe, #4facfe); color: #0d1117; }
+                .btn-save-view { background: #2ec4b6; color: #0d1117; }
+                .btn-reset { background: #32354c; color: #e5e7eb; font-size: 12px; padding: 7px 10px; }
+                .btn-reset-all { background: #4a2828; color: #ff9b9b; font-size: 11px; padding: 6px 10px; }
+                .debug-hint {
+                    margin-top: 11px;
+                    font-size: 11px;
+                    line-height: 1.55;
+                    color: #cccccc;
+                    background: #141521;
+                    padding: 9px 11px;
+                    border-radius: 7px;
+                    border-left: 3.5px solid #00f2fe;
+                }
+                .debug-selected-target {
+                    outline: 3px dashed #00f2fe !important;
+                    outline-offset: 4px !important;
+                    box-shadow: 0 0 16px rgba(0, 242, 254, 0.7) !important;
+                }
+                .debug-mini-fab {
+                    display: none;
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    background: linear-gradient(90deg, #00f2fe, #4facfe);
+                    color: #111;
+                    border: 2px solid #fff;
+                    padding: 10px 18px;
+                    border-radius: 30px;
+                    font-weight: 800;
+                    font-size: 14px;
+                    cursor: pointer;
+                    z-index: 100000;
+                    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+                }
+                .debug-mini-fab.show { display: block; }
+                .debug-modal {
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(0, 0, 0, 0.8);
+                    backdrop-filter: blur(6px);
+                    z-index: 100002;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding: 18px;
+                }
+                .debug-modal.hidden { display: none; }
+                .debug-modal-content {
+                    background: #1a1c2b;
+                    color: #fff;
+                    border: 2px solid #00f2fe;
+                    border-radius: 14px;
+                    width: 100%;
+                    max-width: 540px;
+                    padding: 22px;
+                    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7);
+                }
+                .debug-modal-content h3 { color: #00f2fe; margin-bottom: 8px; font-size: 17px; font-weight: 800; }
+                .debug-modal-content p { font-size: 12.5px; color: #d1d5db; margin-bottom: 12px; line-height: 1.5; }
+                .debug-modal-content textarea {
+                    width: 100%;
+                    height: 220px;
+                    background: #0f101a;
+                    color: #00f2fe;
+                    border: 1px solid #444a69;
+                    border-radius: 8px;
+                    padding: 12px;
+                    font-family: Consolas, Monaco, monospace;
+                    font-size: 12px;
+                    line-height: 1.5;
+                    resize: none;
+                    outline: none;
+                    box-sizing: border-box;
+                }
+                .debug-modal-footer { margin-top: 14px; display: flex; gap: 10px; justify-content: flex-end; }
+                body.debug-drag-active .scrapbook-card,
+                body.debug-drag-active .scrapbook-card * {
+                    cursor: grab !important;
+                    transition: none !important;
+                    animation-play-state: paused !important;
+                }
+                body.debug-drag-active .scrapbook-card *:active { cursor: grabbing !important; }
+            `;
+            document.head.appendChild(styleEl);
+
+            // Tạo Panel HTML
+            const panelEl = document.createElement('div');
+            panelEl.id = 'debugPanel';
+            panelEl.className = 'debug-panel';
+            panelEl.innerHTML = `
+                <div class="debug-header">
+                    <span>🛠️ Căn Chỉnh Vị Trí (DEBUG)</span>
+                    <div class="debug-hdr-btns">
+                        <button id="btnExitEditTop" class="debug-btn-exit" title="Về trang thiệp chính">🚪 Thoát</button>
+                        <button id="btnToggleMinimize" class="debug-btn-icon" title="Thu nhỏ">—</button>
+                    </div>
+                </div>
+
+                <div id="debugBody" class="debug-body">
+                    <div class="debug-row">
+                        <input type="checkbox" id="chkEnableDrag" checked style="width: 18px; height: 18px; accent-color: #00f2fe; cursor: pointer;">
+                        <label for="chkEnableDrag" style="cursor: pointer; font-weight: 700; color: #00f2fe;">Cho phép Kéo Thả trực tiếp</label>
+                    </div>
+
+                    <div class="debug-row" style="flex-direction: column; align-items: flex-start; gap: 4px;">
+                        <label style="font-size: 11.5px; color: #a1a1aa; font-weight: 600;">Chọn phần tử để căn chỉnh:</label>
+                        <select id="selDebugItem" class="debug-select"></select>
+                    </div>
+
+                    <div class="debug-controls">
+                        <div class="debug-control-group">
+                            <div class="debug-slider-header">
+                                <span>↔️ Di chuyển X (Ngang):</span>
+                                <span id="valX" class="debug-val">0px</span>
+                            </div>
+                            <input type="range" id="rngX" min="-300" max="300" value="0" class="debug-range">
+                        </div>
+
+                        <div class="debug-control-group">
+                            <div class="debug-slider-header">
+                                <span>↕️ Di chuyển Y (Dọc):</span>
+                                <span id="valY" class="debug-val">0px</span>
+                            </div>
+                            <input type="range" id="rngY" min="-300" max="300" value="0" class="debug-range">
+                        </div>
+
+                        <div class="debug-control-group">
+                            <div class="debug-slider-header">
+                                <span>🔍 Phóng to / Thu nhỏ (Scale):</span>
+                                <span id="valScale" class="debug-val">1.0x</span>
+                            </div>
+                            <input type="range" id="rngScale" min="0.2" max="3.0" step="0.02" value="1" class="debug-range">
+                            <div class="debug-quick-btns">
+                                <button class="debug-mini-btn" id="btnZoomOut">➖ Thu nhỏ</button>
+                                <button class="debug-mini-btn" id="btnZoomReset">1.0x Gốc</button>
+                                <button class="debug-mini-btn" id="btnZoomIn">➕ Phóng to</button>
+                            </div>
+                        </div>
+
+                        <div class="debug-control-group">
+                            <div class="debug-slider-header">
+                                <span>🔄 Xoay góc (Rotate):</span>
+                                <span id="valRotate" class="debug-val">0°</span>
+                            </div>
+                            <input type="range" id="rngRotate" min="-180" max="180" value="0" class="debug-range">
+                            <div class="debug-quick-btns">
+                                <button class="debug-mini-btn" id="btnRotLeft">-5°</button>
+                                <button class="debug-mini-btn" id="btnRotZero">0° Thẳng</button>
+                                <button class="debug-mini-btn" id="btnRotRight">+5°</button>
+                            </div>
+                        </div>
+
+                        <div class="debug-dpad">
+                            <button class="debug-dbtn" id="dpadUp" title="Dịch lên 2px">⬆️ Lên</button>
+                            <div class="debug-dpad-row">
+                                <button class="debug-dbtn" id="dpadLeft" title="Dịch trái 2px">⬅️ Trái</button>
+                                <button class="debug-dbtn" id="dpadDown" title="Dịch xuống 2px">⬇️ Xuống</button>
+                                <button class="debug-dbtn" id="dpadRight" title="Dịch phải 2px">➡️ Phải</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="debug-actions">
+                        <button id="btnCopyCSS" class="debug-act-btn btn-copy" title="Copy toàn bộ mã CSS để gửi cho AI">
+                            📋 COPY MÃ CSS VỊ TRÍ
+                        </button>
+                        <button id="btnSaveAndView" class="debug-act-btn btn-save-view" title="Lưu vị trí và chuyển sang xem thiệp sạch">
+                            💾 LƯU & XEM THIỆP SẠCH
+                        </button>
+                        <button id="btnResetItem" class="debug-act-btn btn-reset" title="Đặt lại phần tử đang chọn về ban đầu">
+                            🔄 Đặt lại mục này
+                        </button>
+                        <button id="btnResetAll" class="debug-act-btn btn-reset-all" title="Khôi phục toàn bộ vị trí ban đầu">
+                            ⚠️ Reset toàn bộ về gốc
+                        </button>
+                    </div>
+
+                    <div class="debug-hint">
+                        💡 <b>Mẹo thao tác:</b><br>
+                        - Click trực tiếp vào <b>bánh kem</b>, <b>nút thổi nến</b> hoặc <b>ảnh</b> để chọn.<br>
+                        - Kéo chuột để di chuyển.<br>
+                        - <b>Lăn con lăn chuột</b> trên phần tử để Zoom to / nhỏ.<br>
+                        - Bấm <b>LƯU & XEM THIỆP SẠCH</b> bất kỳ lúc nào để chuyển sang xem thiệp nguyên bản!
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(panelEl);
+
+            // Nút mở lại khi thu nhỏ
+            const miniFab = document.createElement('button');
+            miniFab.id = 'btnOpenDebugMini';
+            miniFab.className = 'debug-mini-fab';
+            miniFab.textContent = '🛠️ Căn chỉnh ảnh & bánh';
+            document.body.appendChild(miniFab);
+
+            // Modal xuất CSS
+            const modalEl = document.createElement('div');
+            modalEl.id = 'debugModal';
+            modalEl.className = 'debug-modal hidden';
+            modalEl.innerHTML = `
+                <div class="debug-modal-content">
+                    <h3>📋 MÃ CSS VỊ TRÍ ĐÃ CĂN CHỈNH</h3>
+                    <p>Mã đã được tự động copy vào bộ nhớ tạm! Bạn chỉ việc gửi lại đoạn mã này cho tôi:</p>
+                    <textarea id="txtCssOutput" readonly></textarea>
+                    <div class="debug-modal-footer">
+                        <button id="btnCloseModal" class="debug-act-btn btn-copy" style="width: auto; padding: 9px 20px;">Đã copy, Đóng</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modalEl);
+
+            // Khởi tạo các sự kiện điều khiển
+            const selDebugItem = document.getElementById('selDebugItem');
+            const rngX = document.getElementById('rngX');
+            const rngY = document.getElementById('rngY');
+            const rngScale = document.getElementById('rngScale');
+            const rngRotate = document.getElementById('rngRotate');
+            const valX = document.getElementById('valX');
+            const valY = document.getElementById('valY');
+            const valScale = document.getElementById('valScale');
+            const valRotate = document.getElementById('valRotate');
+            const chkEnableDrag = document.getElementById('chkEnableDrag');
+            const debugPanel = document.getElementById('debugPanel');
+            const btnOpenDebugMini = document.getElementById('btnOpenDebugMini');
+            const btnToggleMinimize = document.getElementById('btnToggleMinimize');
+            const btnExitEditTop = document.getElementById('btnExitEditTop');
+            const btnCopyCSS = document.getElementById('btnCopyCSS');
+            const btnSaveAndView = document.getElementById('btnSaveAndView');
+            const btnResetItem = document.getElementById('btnResetItem');
+            const btnResetAll = document.getElementById('btnResetAll');
+            const debugModal = document.getElementById('debugModal');
+            const txtCssOutput = document.getElementById('txtCssOutput');
+            const btnCloseModal = document.getElementById('btnCloseModal');
+
+            let currentItem = DEBUG_ITEMS[0]; // Mặc định chọn ngay Nút thổi nến!
+
+            // Phân nhóm dropdown
+            const groups = {
+                cake: document.createElement('optgroup'),
+                photo: document.createElement('optgroup'),
+                frame: document.createElement('optgroup'),
+                item: document.createElement('optgroup'),
+                star: document.createElement('optgroup')
+            };
+            groups.cake.label = '🎂 BÁNH KEM & NÚT THỔI NẾN';
+            groups.photo.label = '📸 ẢNH CỦA BẠN (Bên trong khung)';
+            groups.frame.label = '🔲 CẢ KHUNG ẢNH (Trên thiệp)';
+            groups.item.label = '🎀 PHỤ KIỆN & STICKER';
+            groups.star.label = '⭐ NGÔI SAO TRANG TRÍ';
+
+            DEBUG_ITEMS.forEach(it => {
+                const opt = document.createElement('option');
+                opt.value = it.id;
+                opt.textContent = it.name;
+                if (groups[it.group]) groups[it.group].appendChild(opt);
+                else selDebugItem.appendChild(opt);
+            });
+            Object.values(groups).forEach(g => selDebugItem.appendChild(g));
+
+            function updateUIForCurrent() {
+                selDebugItem.value = currentItem.id;
+                rngX.value = currentItem.x;
+                rngY.value = currentItem.y;
+                rngScale.value = currentItem.scale;
+                rngRotate.value = currentItem.rotate;
+
+                valX.textContent = currentItem.x + 'px';
+                valY.textContent = currentItem.y + 'px';
+                valScale.textContent = currentItem.scale.toFixed(2) + 'x';
+                valRotate.textContent = currentItem.rotate + '°';
+
+                document.querySelectorAll('.debug-selected-target').forEach(e => e.classList.remove('debug-selected-target'));
+                const el = document.querySelector(currentItem.selector);
+                if (el) el.classList.add('debug-selected-target');
+            }
+
+            updateUIForCurrent();
+
+            function saveLayout() {
+                const dataToSave = {};
+                DEBUG_ITEMS.forEach(it => {
+                    dataToSave[it.id] = { x: it.x, y: it.y, scale: it.scale, rotate: it.rotate };
+                });
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+            }
+
+            selDebugItem.addEventListener('change', () => {
+                currentItem = DEBUG_ITEMS.find(it => it.id === selDebugItem.value) || DEBUG_ITEMS[0];
+                updateUIForCurrent();
+            });
+
+            rngX.addEventListener('input', () => {
+                currentItem.x = parseInt(rngX.value, 10);
+                valX.textContent = currentItem.x + 'px';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            rngY.addEventListener('input', () => {
+                currentItem.y = parseInt(rngY.value, 10);
+                valY.textContent = currentItem.y + 'px';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            rngScale.addEventListener('input', () => {
+                currentItem.scale = parseFloat(rngScale.value);
+                valScale.textContent = currentItem.scale.toFixed(2) + 'x';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            document.getElementById('btnZoomIn').addEventListener('click', () => {
+                currentItem.scale = Math.min(3.0, +(currentItem.scale + 0.05).toFixed(2));
+                rngScale.value = currentItem.scale;
+                valScale.textContent = currentItem.scale.toFixed(2) + 'x';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+            document.getElementById('btnZoomOut').addEventListener('click', () => {
+                currentItem.scale = Math.max(0.2, +(currentItem.scale - 0.05).toFixed(2));
+                rngScale.value = currentItem.scale;
+                valScale.textContent = currentItem.scale.toFixed(2) + 'x';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+            document.getElementById('btnZoomReset').addEventListener('click', () => {
+                currentItem.scale = 1.0;
+                rngScale.value = 1.0;
+                valScale.textContent = '1.00x';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            rngRotate.addEventListener('input', () => {
+                currentItem.rotate = parseInt(rngRotate.value, 10);
+                valRotate.textContent = currentItem.rotate + '°';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            document.getElementById('btnRotLeft').addEventListener('click', () => {
+                currentItem.rotate -= 5;
+                rngRotate.value = currentItem.rotate;
+                valRotate.textContent = currentItem.rotate + '°';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+            document.getElementById('btnRotRight').addEventListener('click', () => {
+                currentItem.rotate += 5;
+                rngRotate.value = currentItem.rotate;
+                valRotate.textContent = currentItem.rotate + '°';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+            document.getElementById('btnRotZero').addEventListener('click', () => {
+                currentItem.rotate = 0;
+                rngRotate.value = 0;
+                valRotate.textContent = '0°';
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            function nudge(dx, dy) {
+                currentItem.x += dx;
+                currentItem.y += dy;
+                rngX.value = currentItem.x;
+                rngY.value = currentItem.y;
+                valX.textContent = currentItem.x + 'px';
+                valY.textContent = currentItem.y + 'px';
+                applyTransform(currentItem);
+                saveLayout();
+            }
+
+            document.getElementById('dpadUp').addEventListener('click', () => nudge(0, -2));
+            document.getElementById('dpadDown').addEventListener('click', () => nudge(0, 2));
+            document.getElementById('dpadLeft').addEventListener('click', () => nudge(-2, 0));
+            document.getElementById('dpadRight').addEventListener('click', () => nudge(2, 0));
+
+            btnResetItem.addEventListener('click', () => {
+                const defaults = {
+                    blowHint: { x: 0, y: 0, scale: 1, rotate: 0 },
+                    cakeImg: { x: 0, y: -125, scale: 1, rotate: 0 },
+                    hatLeft: { x: -24, y: -6, scale: 0.94, rotate: -14 },
+                    hatRight: { x: 30, y: 13, scale: 1.54, rotate: 34 },
+                    bowTie: { x: 0, y: 0, scale: 1, rotate: -14 },
+                    flowerBadge: { x: 0, y: 0, scale: 1, rotate: 6 },
+                    catStanding: { x: 0, y: 0, scale: 1, rotate: -6 },
+                    miniLetter: { x: 0, y: 0, scale: 1, rotate: 6 },
+                    cat1Wrap: { x: 0, y: 0, scale: 1, rotate: 4 },
+                    cat2Wrap: { x: 0, y: -54, scale: 1.18, rotate: -8 },
+                    cat3Wrap: { x: 0, y: 0, scale: 1, rotate: 3 },
+                    cat1Photo: { x: -1, y: 2, scale: 1, rotate: 0 },
+                    cat2Photo: { x: 0, y: -1, scale: 1, rotate: 0 },
+                    star3: { x: 0, y: 0, scale: 1.48, rotate: 0 }
+                };
+                const def = defaults[currentItem.id] || { x: 0, y: 0, scale: 1, rotate: 0 };
+                Object.assign(currentItem, def);
+                updateUIForCurrent();
+                applyTransform(currentItem);
+                saveLayout();
+            });
+
+            btnResetAll.addEventListener('click', () => {
+                if (!confirm('Đặt lại TOÀN BỘ vị trí về mặc định ban đầu?')) return;
+                localStorage.removeItem(STORAGE_KEY);
+                location.reload();
+            });
+
+            btnToggleMinimize.addEventListener('click', () => {
+                debugPanel.classList.add('minimized');
+                btnOpenDebugMini.classList.add('show');
+            });
+
+            btnOpenDebugMini.addEventListener('click', () => {
+                debugPanel.classList.remove('minimized');
+                btnOpenDebugMini.classList.remove('show');
+            });
+
+            // Thoát chế độ sửa để xem thiệp sạch
+            function thoatCheDoSua() {
+                saveLayout();
+                sessionStorage.removeItem('CMSN_EDIT_MODE');
+                window.location.href = 'cmsn.html';
+            }
+            btnExitEditTop.addEventListener('click', thoatCheDoSua);
+            btnSaveAndView.addEventListener('click', thoatCheDoSua);
+
+            function updateDragMode() {
+                document.body.classList.toggle('debug-drag-active', chkEnableDrag.checked);
+            }
+            chkEnableDrag.addEventListener('change', updateDragMode);
+            updateDragMode();
+
+            let hasDraggedRecently = false;
+
+            DEBUG_ITEMS.forEach(it => {
+                const el = document.querySelector(it.selector);
+                if (!el) return;
+
+                el.addEventListener('mousedown', (e) => {
+                    if (!chkEnableDrag.checked) return;
+                    e.stopPropagation();
+
+                    currentItem = it;
+                    updateUIForCurrent();
+
+                    let startX = e.clientX;
+                    let startY = e.clientY;
+                    let isDragging = false;
+
+                    function onMouseMove(ev) {
+                        const dx = ev.clientX - startX;
+                        const dy = ev.clientY - startY;
+                        if (Math.abs(dx) > 1 || Math.abs(dy) > 1) isDragging = true;
+                        currentItem.x += dx;
+                        currentItem.y += dy;
+                        startX = ev.clientX;
+                        startY = ev.clientY;
+                        rngX.value = currentItem.x;
+                        rngY.value = currentItem.y;
+                        valX.textContent = currentItem.x + 'px';
+                        valY.textContent = currentItem.y + 'px';
+                        applyTransform(currentItem);
+                    }
+
+                    function onMouseUp(ev) {
+                        window.removeEventListener('mousemove', onMouseMove);
+                        window.removeEventListener('mouseup', onMouseUp);
+                        if (isDragging) {
+                            hasDraggedRecently = true;
+                            setTimeout(() => { hasDraggedRecently = false; }, 250);
+                            saveLayout();
+                        }
+                    }
+
+                    window.addEventListener('mousemove', onMouseMove);
+                    window.addEventListener('mouseup', onMouseUp);
+                });
+
+                el.addEventListener('wheel', (e) => {
+                    if (!chkEnableDrag.checked) return;
+                    e.preventDefault();
+                    e.stopPropagation();
+                    currentItem = it;
+                    updateUIForCurrent();
+
+                    const delta = e.deltaY < 0 ? 0.04 : -0.04;
+                    currentItem.scale = Math.max(0.2, Math.min(3.0, +(currentItem.scale + delta).toFixed(2)));
+                    rngScale.value = currentItem.scale;
+                    valScale.textContent = currentItem.scale.toFixed(2) + 'x';
+                    applyTransform(currentItem);
+                    saveLayout();
+                }, { passive: false });
+            });
+
+            window.addEventListener('click', (e) => {
+                if (hasDraggedRecently) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+            }, true);
+
+            window.addEventListener('keydown', (e) => {
+                if (!chkEnableDrag.checked) return;
+                const step = e.shiftKey ? 10 : 1;
+                if (e.key === 'ArrowUp') { e.preventDefault(); nudge(0, -step); }
+                if (e.key === 'ArrowDown') { e.preventDefault(); nudge(0, step); }
+                if (e.key === 'ArrowLeft') { e.preventDefault(); nudge(-step, 0); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); nudge(step, 0); }
+            });
+
+            btnCopyCSS.addEventListener('click', () => {
+                let cssOutput = `/* ================================================================\n   MÃ CSS VỊ TRÍ ĐÃ CĂN CHỈNH TAY CỦA BẠN (GỬI LẠI ĐỂ LƯU VĨNH VIỄN)\n   ================================================================ */\n`;
+                DEBUG_ITEMS.forEach(it => {
+                    const baseStr = it.base ? it.base + ' ' : '';
+                    cssOutput += `/* ${it.name} */\n${it.selector} {\n    transform: ${baseStr}translate(${it.x}px, ${it.y}px) rotate(${it.rotate}deg) scale(${it.scale}) !important;\n}\n\n`;
+                });
+
+                txtCssOutput.value = cssOutput;
+                debugModal.classList.remove('hidden');
+
+                if (navigator.clipboard) {
+                    navigator.clipboard.writeText(cssOutput).catch(() => { });
+                }
+            });
+
+            btnCloseModal.addEventListener('click', () => {
+                debugModal.classList.add('hidden');
+            });
+        }
+    </script>
+</body>
+
+</html>
